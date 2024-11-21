@@ -1,0 +1,34 @@
+aid: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
+name: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
+description: >-
+  About the Bureau of Alcohol, Tobacco, Firearms and Explosives. ATF is a law
+  enforcement agency in the United States Department of Justice that protects
+  our ...
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - API
+created: '2024-11-21'
+modified: '2024-11-21'
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/refs/heads/main/apis.yml
+specificationVersion: '0.19'
+apis:
+  - aid: >-
+      bureau-of-alcohol-tobacco-firearms-and-explosives-atf-:bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
+    name: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
+    description: >-
+      About the Bureau of Alcohol, Tobacco, Firearms and Explosives. ATF is a
+      law enforcement agency in the United States Department of Justice that
+      protects our ...
+    humanURL: https://www.atf.gov/
+    tags:
+      - API
+    properties:
+      - type: Documentation
+        url: https://www.atf.gov/
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com
