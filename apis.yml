@@ -1,20 +1,6 @@
 aid: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
 url: >-
   https://raw.githubusercontent.com/api-evangelist/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/refs/heads/main/apis.yml
-apis:
-  - aid: >-
-      bureau-of-alcohol-tobacco-firearms-and-explosives-atf-:bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
-    name: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
-    tags:
-      - API
-    humanURL: https://www.atf.gov/
-    properties:
-      - url: https://www.atf.gov/
-        type: Documentation
-    description: >-
-      About the Bureau of Alcohol, Tobacco, Firearms and Explosives. ATF is a
-      law enforcement agency in the United States Department of Justice that
-      protects our ...
 name: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
 tags:
   - Federal Government
@@ -22,17 +8,37 @@ tags:
   - Tobacco
   - Firearms
   - Explosives
-type: Contract
+type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2024-11-21'
-modified: '2024-12-22'
-position: Consuming
+modified: '2026-03-16'
+position: Consumer
 description: >-
-  About the Bureau of Alcohol, Tobacco, Firearms and Explosives. ATF is a law
-  enforcement agency in the United States Department of Justice that protects
-  our ...
+  ATF is a law enforcement agency in the United States Department of Justice
+  that protects communities from violent criminals, criminal organizations, the
+  illegal use and trafficking of firearms, the illegal use and storage of
+  explosives, acts of arson and bombings, acts of terrorism, and the illegal
+  diversion of alcohol and tobacco products.
+apis:
+  - aid: >-
+      bureau-of-alcohol-tobacco-firearms-and-explosives-atf-:bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
+    name: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
+    tags:
+      - Federal Government
+    humanURL: https://www.atf.gov/
+    properties:
+      - url: https://www.atf.gov/
+        type: Documentation
+    description: >-
+      ATF is a law enforcement agency in the United States Department of Justice
+      that protects communities from violent criminals and criminal organizations.
+common:
+  - type: Website
+    url: https://www.atf.gov/
+  - type: Privacy Policy
+    url: https://www.atf.gov/privacy-policy
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
 specificationVersion: '0.19'
