@@ -3,11 +3,11 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/refs/heads/main/apis.yml
 name: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
 tags:
-  - Federal Government
   - Alcohol
-  - Tobacco
-  - Firearms
   - Explosives
+  - Federal Government
+  - Firearms
+  - Tobacco
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
