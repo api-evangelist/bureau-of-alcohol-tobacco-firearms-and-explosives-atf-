@@ -64,6 +64,10 @@ apis:
       by state. The data is available as downloadable files and can be accessed
       programmatically for compliance verification purposes.
 common:
+  - type: GitHubOrganization
+    url: https://github.com/atfweb
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/atf
   - type: Website
     url: https://www.atf.gov/
   - type: PrivacyPolicy
