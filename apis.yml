@@ -5,6 +5,14 @@ name: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
 tags:
   - Alcohol
   - Explosives
+  - Federal-Government
+  - Firearms
+  - Law Enforcement
+  - Public Safety
+  - Tobacco
+tags_raw:
+  - Alcohol
+  - Explosives
   - Federal Government
   - Firearms
   - Law Enforcement
@@ -42,6 +50,12 @@ apis:
     name: ATF Firearms Trace Data
     tags:
       - Firearms
+      - Federal-Government
+      - Law Enforcement
+      - Public Safety
+      - Statistics
+    tags_raw:
+      - Firearms
       - Federal Government
       - Law Enforcement
       - Public Safety
@@ -61,6 +75,10 @@ apis:
       bureau-of-alcohol-tobacco-firearms-and-explosives-atf-:atf-federal-firearms-licensee-listing
     name: ATF Federal Firearms Licensee (FFL) Listing
     tags:
+      - Federal Firearms Licensees
+      - Firearms
+      - Federal-Government
+    tags_raw:
       - Federal Firearms Licensees
       - Firearms
       - Federal Government
