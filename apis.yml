@@ -47,7 +47,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bureau-of-
 access: 3rd-Party
 created: '2024-11-21'
 modified: '2026-04-21'
-position: Consumer
+position: Consuming
 description: >-
   ATF is a law enforcement agency in the United States Department of Justice
   that protects communities from violent criminals, criminal organizations, the
