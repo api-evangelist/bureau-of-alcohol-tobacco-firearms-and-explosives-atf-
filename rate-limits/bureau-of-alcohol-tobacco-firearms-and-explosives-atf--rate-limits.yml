@@ -4,96 +4,69 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
 providerId: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-05'
+generated: '2026-09-05'
+method: probed
+source: >-
+  Live unauthenticated requests to https://regulations.atf.gov/api/* and the two
+  ATF ArcGIS feature services on 2026-09-05, plus a search of atf.gov for any
+  published usage policy.
 tags:
-  - Alcohol
-  - Explosives
-  - Federal Government
-  - Firearms
-  - Law Enforcement
-  - Public Safety
-  - Tobacco
   - Rate Limiting
   - Quotas
   - Throttling
-description: Machine-readable rate limit definitions for the Bureau of Alcohol, Tobacco, Firearms and
-  Explosives (ATF) API surface. Captures per-tier quotas, burst behavior, response signaling, and recovery
-  semantics. Defaults are scaffold values to be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - ATF Firearms Trace Data
-      - ATF Federal Firearms Licensee (FFL) Listing
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - ATF Firearms Trace Data
-      - ATF Federal Firearms Licensee (FFL) Listing
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - ATF Firearms Trace Data
-      - ATF Federal Firearms Licensee (FFL) Listing
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - ATF Firearms Trace Data
-      - ATF Federal Firearms Licensee (FFL) Listing
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - ATF Firearms Trace Data
-      - ATF Federal Firearms Licensee (FFL) Listing
+description: >-
+  ATF publishes no rate limits and returns no rate-limit headers. This file
+  replaces a 2026-05-04 bulk-sweep scaffold that invented free/professional/
+  enterprise tiers with per-minute and per-month quotas for an agency that sells
+  nothing and issues no API keys. None of those numbers were ever ATF's; all have
+  been removed.
+limit_count: 0
+limits: []
+headers: {}
+responseCodes: {}
+observed:
+  - surface: ATF eRegulations API
+    url: https://regulations.atf.gov/api/regulation
+    rate_limit_headers: []
+    detail: >-
+      No X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+      RateLimit-Policy or Retry-After header on any 200 response. No 429 was
+      returned during this pass. There is no key, so there is nothing to scope a
+      limit to; any limiting would be per-IP and is undocumented.
+  - surface: ATF ArcGIS feature services
+    url: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/Federal_Firearm_Licensees_locations/FeatureServer/0
+    rate_limit_headers: []
+    detail: >-
+      No rate-limit headers. The one hard, PUBLISHED ceiling on this provider is a
+      transfer limit rather than a rate limit, and it is declared in the service
+      descriptor itself.
+transfer_limits:
+  - surface: Federal Firearm Licensees locations
+    field: maxRecordCount
+    value: 2000
+    standardMaxRecordCount: 16000
+    tileMaxRecordCount: 8000
+    total_records: 77514
+    detail: >-
+      A single query returns at most 2,000 features regardless of `where`. Walking
+      all 77,514 FFL records therefore takes at least 39 paged requests using
+      resultOffset / resultRecordCount. Check `exceededTransferLimit` on every
+      page. Source: the FeatureServer descriptor saved under geoservices/.
+  - surface: ATF Office Locations
+    field: maxRecordCount
+    value: 2000
+    total_records: 537
+    detail: Fits in a single request; the cap never binds.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: No published usage policy
+    description: >-
+      ATF documents no fair-use rule, no throttling behaviour and no contact for
+      requesting higher volume. A consumer building on these endpoints has no
+      stated ceiling and no warning before one is enforced. Rate-limit the client
+      side conservatively and cache: the regulation text changes at Federal
+      Register cadence (27 CFR 646 has not changed since 2014) and the feature
+      layers were last edited 2026-06-17 and 2026-04-16.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

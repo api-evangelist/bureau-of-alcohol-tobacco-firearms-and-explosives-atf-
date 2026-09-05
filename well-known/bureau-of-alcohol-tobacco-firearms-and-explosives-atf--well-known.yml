@@ -1,0 +1,142 @@
+generated: '2026-09-05'
+method: probed
+source: >-
+  Anonymous HTTPS probes with a desktop-browser User-Agent against every host in
+  this record: the registrable domain and www, the ATF eRegulations API host, the
+  ArcGIS Online feature-service host and the ArcGIS Hub open-data host.
+note: >-
+  NOTHING WAS SERVED. Not one /.well-known/ path returned a real document on any
+  ATF-controlled host, so this file carries NO WellKnown or SecurityTxt pointer in
+  apis.yml — the probe records an absence, and an absence must never read as a
+  presence. Two response patterns are worth distinguishing for whoever probes next:
+  www.atf.gov sits behind an Akamai edge policy that answers 403 "Access Denied" to
+  most extension-bearing paths (.json in particular) while serving a genuine Drupal
+  404 page for /.well-known/security.txt and /llms.txt — so the 403 rows are OUR
+  crawler being refused, not evidence about what ATF publishes. eforms.atf.gov is a
+  single-page application whose catch-all answers 200 with the same HTML shell for
+  every path, which is the dominant /.well-known/ false positive; those rows are
+  recorded as misses on content, not on status.
+hosts:
+  - host: www.atf.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 403
+        file: null
+        note: Akamai edge refusal, not a provider answer.
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+        file: null
+        note: Akamai edge refusal, not a provider answer.
+      - path: /.well-known/api-catalog
+        status: 403
+        file: null
+        note: Akamai edge refusal, not a provider answer.
+      - path: /.well-known/ai-plugin.json
+        status: 403
+        file: null
+        note: Akamai edge refusal, not a provider answer.
+      - path: /.well-known/agent-card.json
+        status: 403
+        file: null
+        note: Akamai edge refusal, not a provider answer.
+      - path: /.well-known/agent.json
+        status: 403
+        file: null
+        note: Akamai edge refusal, not a provider answer.
+      - path: /apis.json
+        status: 403
+        file: null
+      - path: /llms.txt
+        status: 404
+        file: null
+  - host: atf.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        file: null
+      - path: /.well-known/api-catalog
+        status: 403
+        file: null
+      - path: /llms.txt
+        status: 403
+        file: null
+  - host: regulations.atf.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: null
+        note: >-
+          NOT A DOCUMENT. The eRegulations Django app returns its HTML site shell
+          for every unmatched path, so this 200 carries text/html, not a
+          security.txt. Recorded as a miss.
+      - path: /.well-known/agent-card.json
+        status: 200
+        file: null
+        note: HTML site shell, not an AgentCard. Recorded as a miss.
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: null
+        note: HTML site shell. Recorded as a miss.
+      - path: /apis.json
+        status: 200
+        file: null
+        note: HTML site shell. Recorded as a miss.
+      - path: /llms.txt
+        status: 200
+        file: null
+        note: HTML site shell. Recorded as a miss.
+  - host: eforms.atf.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: null
+        note: SPA catch-all HTML shell, identical body on every path. Miss.
+      - path: /.well-known/agent-card.json
+        status: 200
+        file: null
+        note: SPA catch-all HTML shell. Miss.
+      - path: /.well-known/agent.json
+        status: 200
+        file: null
+        note: SPA catch-all HTML shell. Miss.
+      - path: /.well-known/api-catalog
+        status: 200
+        file: null
+        note: SPA catch-all HTML shell. Miss.
+      - path: /llms.txt
+        status: 200
+        file: null
+        note: SPA catch-all HTML shell. Miss.
+  - host: fflezcheck.atf.gov
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /robots.txt
+        status: 404
+        file: null
+  - host: services6.arcgis.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        file: null
+        note: >-
+          Esri-operated ArcGIS Online host, not ATF infrastructure. Probed because
+          ATF's two public feature services are served from it; ATF cannot publish
+          a well-known document here.
+  - host: opendata-atf-geoplatform.hub.arcgis.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /data.json
+        status: 200
+        file: ../data-portal/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--dcat-us.json
+        note: >-
+          NOT a /.well-known/ document — recorded here because it is the one real
+          machine-readable discovery document ATF serves: a DCAT-US 1.1 /
+          Project Open Data catalog listing four datasets. Registered separately
+          in apis.yml as type Data Portal and in conformance/.

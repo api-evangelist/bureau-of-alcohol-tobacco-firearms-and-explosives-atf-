@@ -1,0 +1,54 @@
+generated: '2026-09-05'
+method: searched
+provider: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
+providerId: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
+source: >-
+  Searched npm (registry.npmjs.org search API), PyPI, RubyGems, crates.io and the
+  atfweb GitHub organization on 2026-09-05 for a first-party ATF client library.
+package_count: 0
+official_package_count: 0
+packages: []
+detail: >-
+  ATF publishes no client library in any language, on any registry. The
+  atfweb GitHub organization holds five repositories and none of them is an SDK:
+  `prudentia` (a Drupal theme built on uswds_base), `integrity` (a fork of
+  uswds/uswds), and `regulations`, `regulations-core` and `django` — the server-side
+  components of the eRegulations deployment behind regulations.atf.gov, not
+  clients for it. Nothing on npm or PyPI is ATF-published; the name collisions
+  found (`@servicenow/atf-fluent`, PyPI `atf` — "ATF is a Test Framework") are
+  unrelated projects that happen to share the acronym.
+searched_registries:
+  - registry: npm
+    query: https://registry.npmjs.org/-/v1/search?text=atf%20firearms
+    status: 200
+    result: no first-party package
+  - registry: npm
+    query: https://registry.npmjs.org/-/v1/search?text=federal%20firearms%20licensee
+    status: 200
+    result: no first-party package
+  - registry: pypi
+    query: https://pypi.org/pypi/atf/json
+    status: 200
+    result: >-
+      Name is taken by an unrelated project ("ATF is a Test Framework"), not by
+      the Bureau.
+  - registry: rubygems
+    query: https://rubygems.org/api/v1/search.json?query=atf+firearms
+    status: 200
+    result: empty result set
+  - registry: crates.io
+    query: https://crates.io/api/v1/crates?q=atf%20firearms
+    status: 200
+    result: no first-party package
+  - registry: github
+    query: https://github.com/atfweb?tab=repositories
+    status: 200
+    result: >-
+      5 repos, none an SDK. No release is tagged on any of them, so there is no
+      version or publish date to record even as an unregistered distribution.
+note: >-
+  No `version:`/`published:` fields appear here because there is no package to
+  date. That is a checked, empty result — not an unchecked field. The practical
+  consequence is small for this provider: the surface is anonymous HTTP GET
+  returning JSON, so any standard HTTP client is sufficient and no key handling,
+  token refresh or request signing needs wrapping.

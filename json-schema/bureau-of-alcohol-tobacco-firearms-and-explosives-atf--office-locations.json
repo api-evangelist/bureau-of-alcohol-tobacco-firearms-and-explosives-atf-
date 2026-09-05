@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/main/json-schema/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--office-locations.json",
+  "title": "ATF Office Location",
+  "description": "Attribute schema for the ATF public ArcGIS Feature Layer 'ATF_Office_Locations_Opendata'. DERIVED on 2026-09-05 from the layer's own field definitions fetched from https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/ATF_Office_Locations/FeatureServer/0?f=json \u2014 every property name, type and length below is copied from that document. Geometry is carried outside `attributes` by the GeoServices envelope (geometryType esriGeometryPoint, spatial reference EPSG:4269).",
+  "x-generated": "2026-09-05",
+  "x-method": "derived",
+  "x-source": "https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/ATF_Office_Locations/FeatureServer/0?f=json",
+  "type": "object",
+  "properties": {
+    "OBJECTID": {
+      "type": "integer",
+      "title": "ObjectID",
+      "description": "ArcGIS field OBJECTID (esriFieldTypeOID)"
+    },
+    "user_office_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Office Type",
+      "description": "ArcGIS field user_office_type (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "user_office_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Office Name",
+      "description": "ArcGIS field user_office_name (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "user_address": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Address",
+      "description": "ArcGIS field user_address (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "user_city": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "City",
+      "description": "ArcGIS field user_city (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "user_state": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "State",
+      "description": "ArcGIS field user_state (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "user_field_division": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Field Division",
+      "description": "ArcGIS field user_field_division (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "user_zipcode": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "ZipCode",
+      "description": "ArcGIS field user_zipcode (esriFieldTypeInteger)"
+    },
+    "globalid": {
+      "type": "string",
+      "title": "globalid",
+      "description": "ArcGIS field globalid (esriFieldTypeGlobalID)",
+      "format": "uuid",
+      "maxLength": 38
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "OBJECTID"
+  ]
+}

@@ -11,138 +11,51 @@ providerId: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
 publisherName: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
 serviceCategory: API
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-05'
+generated: '2026-09-05'
+method: searched
+source: >-
+  Searched atf.gov and the ATF API surfaces on 2026-09-05 for any billing,
+  metering or chargeback signal. None exists.
 tags:
-  - Alcohol
-  - Explosives
   - Federal Government
-  - Firearms
-  - Law Enforcement
-  - Public Safety
-  - Tobacco
+  - Open Data
   - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
-  API surface. Provides a FOCUS-aligned mapping for cost allocation, usage measurement, and unit-economics
-  reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+applicable: false
+description: >-
+  FinOps does not apply to this provider on the consumption side. ATF's public API
+  surface is free, anonymous and unmetered — there is no invoice, no billed cost,
+  no pricing unit and no consumer chargeback to allocate. A consumer's only real
+  cost is their own egress and compute.
+  THIS FILE REPLACES A FABRICATION. The 2026-05-04 bulk sweep asserted a
+  "Usage-Based" pricingCategory, monthly billing in USD, an InvoiceIssuerName of
+  ATF, and meters for billable api_requests, data_egress and compute_seconds. ATF
+  bills nobody for API access; all of it has been removed.
 billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
-  billingCurrency: USD
-  chargeCategories:
-    - Usage
-    - Purchase
-    - Tax
-    - Credit
-    - Adjustment
-  chargeFrequency: Recurring
-focusColumns:
-  ServiceName: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
-  ServiceCategory: Developer Tools / API
-  ProviderName: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
-  PublisherName: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
-  InvoiceIssuerName: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
-  PricingCategory: Usage-Based
-  PricingUnit: request
-  BillingCurrency: USD
-  ChargeCategory: Usage
-meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
-    aggregation: sum
-    dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
+  pricingCategory: Free
+  billingFrequency: none
+  billingCurrency: null
+  chargeCategories: []
+  chargeFrequency: none
+meters: []
+unitEconomics: []
+consumer_side_costs:
+  - name: Client egress and storage
+    description: >-
+      The only material cost of consuming ATF data is on the consumer's side.
+      Walking the 77,514-record Federal Firearms Licensee layer takes at least 39
+      paged requests at maxRecordCount 2000; the layer changes rarely (last edited
+      2026-06-17), so caching rather than re-walking is the whole optimisation.
 apis:
-  - name: ATF Firearms Trace Data
-    baseURL: ''
-    tags:
-      - Firearms
-      - Federal Government
-      - Law Enforcement
-      - Public Safety
-      - Statistics
-    serviceName: ATF Firearms Trace Data
-    serviceCategory: API
-  - name: ATF Federal Firearms Licensee (FFL) Listing
-    baseURL: https://www.atf.gov/firearms/docs/report/
-    tags:
-      - Federal Firearms Licensees
-      - Firearms
-      - Federal Government
-    serviceName: ATF Federal Firearms Licensee (FFL) Listing
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+  - name: ATF eRegulations API
+    baseURL: https://regulations.atf.gov/api
+    cost: free
+  - name: ATF Federal Firearms Licensee Locations (ArcGIS Feature Service)
+    baseURL: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/Federal_Firearm_Licensees_locations/FeatureServer
+    cost: free
+  - name: ATF Office Locations (ArcGIS Feature Service)
+    baseURL: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/ATF_Office_Locations/FeatureServer
+    cost: free
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

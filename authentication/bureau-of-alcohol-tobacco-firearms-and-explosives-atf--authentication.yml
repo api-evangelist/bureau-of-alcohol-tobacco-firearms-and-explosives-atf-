@@ -1,0 +1,58 @@
+generated: '2026-09-05'
+method: probed
+provider: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
+providerId: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
+source: >-
+  Live anonymous requests on 2026-09-05 to every public ATF API endpoint found by
+  contract discovery. No credential of any kind was presented and every request
+  succeeded.
+summary: >-
+  There is no authentication. ATF's entire public API surface — the eRegulations
+  JSON API and both ArcGIS feature services — answers unauthenticated GET requests
+  with data. No API key, no OAuth client, no signup, no registration, no rate-limit
+  token. For an agent this is the simplest possible posture: no onboarding step
+  exists to complete.
+schemes: []
+posture:
+  anonymous: true
+  registration_required: false
+  key_issuance: none
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+  signing: none
+evidence:
+  - surface: ATF eRegulations API
+    url: https://regulations.atf.gov/api/regulation
+    status: 200
+    detail: 200 application/json with no Authorization header sent.
+  - surface: ATF eRegulations search
+    url: https://regulations.atf.gov/api/search?q=firearm
+    status: 200
+    detail: 200 application/json, 1,596 total_hits, anonymous.
+  - surface: Federal Firearm Licensees locations (ArcGIS Feature Service)
+    url: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/Federal_Firearm_Licensees_locations/FeatureServer/0/query?where=1%3D1&returnCountOnly=true&f=json
+    status: 200
+    detail: 200 {"count":77514}, anonymous. Item `access` is "public" in ArcGIS Online.
+  - surface: ATF Office Locations (ArcGIS Feature Service)
+    url: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/ATF_Office_Locations/FeatureServer/0/query?where=1%3D1&returnCountOnly=true&f=json
+    status: 200
+    detail: 200 {"count":537}, anonymous.
+  - surface: /.well-known/oauth-authorization-server
+    url: https://www.atf.gov/.well-known/oauth-authorization-server
+    status: 403
+    detail: >-
+      No authorization-server metadata anywhere. The 403 is an Akamai edge refusal
+      of our crawler, not an ATF answer; the same path on regulations.atf.gov
+      returns the app's HTML shell, which is equally not a discovery document.
+gated_surfaces:
+  - name: ATF eForms
+    url: https://eforms.atf.gov/
+    note: >-
+      Licensee-facing form filing behind a Login.gov account. It is a web
+      application, not a documented API; no machine interface is published.
+  - name: eTrace / National Tracing Center
+    url: https://www.atf.gov/firearms/etrace-internet-based-firearms-tracing-and-analysis
+    note: >-
+      Restricted to credentialed law-enforcement agencies. Not a public API and
+      not scored as one.

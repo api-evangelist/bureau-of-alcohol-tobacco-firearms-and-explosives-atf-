@@ -1,0 +1,127 @@
+generated: '2026-09-05'
+method: probed
+provider: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
+providerId: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
+source: >-
+  Derived from live probes of https://regulations.atf.gov/api/* and the two ATF
+  ArcGIS feature-service descriptors saved under geoservices/, on 2026-09-05. ATF
+  publishes no developer documentation describing any of these conventions — every
+  statement below was read off the wire or out of a service descriptor.
+description: >-
+  Cross-cutting runtime semantics of ATF's public API surface. The single most
+  important fact for an agent: the surface is READ-ONLY. Nothing here can create,
+  change or delete anything, which makes idempotency, dry-run and reversibility
+  all `na` rather than absent.
+auth:
+  style: none
+  detail: Anonymous. See authentication/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--authentication.yml
+versioning:
+  style: resource-version-in-path
+  detail: >-
+    eRegulations versions a regulation by the Federal Register document number
+    that produced its text — /api/regulation/478/2026-01141 is 27 CFR 478 as
+    amended by FR document 2026-01141, effective 2026-01-22. This versions the
+    DATA, not the interface: there is no /v1/ or /v2/ API version segment and no
+    version header. The ArcGIS services declare currentVersion 12, which is the
+    Esri platform release, not an ATF contract version.
+  api_version_header: null
+  deprecation_header: null
+pagination:
+  - surface: eRegulations search
+    style: page-number
+    params: [page]
+    response_fields: [total_hits, results]
+    detail: >-
+      GET /api/search?q=firearm&page=1 returns 200. `total_hits` is the full count
+      (1,596 for "firearm"); `results` is the page. Page size is not documented and
+      no next/prev link is returned — a client must derive page count from
+      total_hits and an observed page length.
+  - surface: ArcGIS feature services
+    style: offset-limit
+    params: [resultOffset, resultRecordCount]
+    response_fields: [exceededTransferLimit, features]
+    detail: >-
+      Both layers declare advancedQueryCapabilities.supportsPagination true with
+      maxRecordCount 2000 (standardMaxRecordCount 16000, tileMaxRecordCount 8000).
+      Against 77,514 FFL rows that is 39 pages minimum. Use
+      returnCountOnly=true first to size the walk; check exceededTransferLimit on
+      every page.
+filtering:
+  - surface: eRegulations search
+    params: [q, regulation, version, page]
+    detail: >-
+      `q` is REQUIRED — omitting it returns HTTP 400 with a machine-readable
+      reason. `regulation` narrows to one CFR part, `version` to one effective
+      version; the pair cut "firearm" from 1,596 hits to 50.
+  - surface: eRegulations notices
+    params: [part]
+    detail: GET /api/notice?part=478 restricts the notice list to one CFR part.
+  - surface: ArcGIS feature services
+    params: [where, outFields, geometry, geometryType, spatialRel, resultOffset, resultRecordCount, returnCountOnly, f]
+    detail: >-
+      Standard Esri GeoServices query grammar. `where=1=1` selects everything;
+      `f=json` and `f=geojson` are both accepted. supportedQueryFormats is JSON.
+expansion:
+  supported: false
+  detail: >-
+    No sparse-fieldset or expand parameter on eRegulations. The ArcGIS
+    `outFields` parameter is the equivalent lever on the feature services.
+metadata:
+  supported: false
+  detail: No user-defined metadata can be attached — the surface is read-only.
+request_id:
+  header: null
+  detail: >-
+    No request-id or correlation header is returned by regulations.atf.gov. There
+    is no published support channel that would consume one.
+error_envelope:
+  format: field-keyed-validation
+  media_type: application/json
+  shape: '{"reason": {"<field>": ["<message>", ...]}}'
+  detail: >-
+    Observed on GET /api/search with `q` omitted: HTTP 400
+    {"reason": {"q": ["Missing data for required field."]}}. NOT RFC 9457. See
+    errors/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--problem-types.yml
+    for the full catalog, including the soft-404 trap.
+  soft_404_warning: >-
+    An unknown regulation part or notice id does NOT return 404. The Django app
+    answers HTTP 200 with its HTML site shell — /api/regulation/999 and
+    /api/notice/does-not-exist both do this. A client MUST branch on the response
+    Content-Type, not on the status code, or it will parse a web page as data.
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  detail: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header was returned on any
+    successful request, and no limit is published. See
+    rate-limits/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--rate-limits.yml.
+idempotency:
+  coverage: na
+  scope: []
+  header: null
+  detail: >-
+    NOT APPLICABLE, not missing. Every published operation is a GET; the ArcGIS
+    layers expose capabilities "Query" (FFL) and "Query,Extract" (Offices), with
+    no Create/Update/Delete. There is no mutating operation for a replay guard to
+    protect, so this dimension leaves the denominator rather than scoring zero.
+dry_run_mode:
+  supported: na
+  detail: Read-only surface — there is no action to rehearse.
+reversibility:
+  grade: na
+  detail: >-
+    NOT APPLICABLE. Reversibility asks whether an agent can undo an action it
+    takes. This provider exposes no action: no write, no order, no submission, no
+    state change of any kind reaches ATF through these endpoints. There is
+    therefore no reversal operation to name and no window to state, and inventing
+    either would be a fabrication. If ATF ever opens a write surface — eForms
+    filing being the obvious candidate — this block must be re-derived, because a
+    firearms licence application is precisely the kind of action whose reversal
+    window a user needs stated before they act.
+  write_surfaces: []
+cross_links:
+  errors: errors/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--problem-types.yml
+  lifecycle: lifecycle/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--lifecycle.yml
+  authentication: authentication/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--authentication.yml
+  rate_limits: rate-limits/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--rate-limits.yml
+  conformance: conformance/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--conformance.yml

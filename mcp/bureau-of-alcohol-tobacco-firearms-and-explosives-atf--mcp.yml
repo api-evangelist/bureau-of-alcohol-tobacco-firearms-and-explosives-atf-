@@ -1,0 +1,151 @@
+generated: '2026-09-05'
+method: derived
+provider: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
+providerId: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
+status: candidate
+source: >-
+  SEARCH found no ATF MCP server. Probed for a hosted endpoint on every ATF host,
+  searched npm and PyPI for a first-party package, and checked the atfweb GitHub
+  organization (5 repos: django, integrity, prudentia, regulations,
+  regulations-core — all Drupal theme, USWDS fork and eRegulations components, no
+  MCP). The tools below are DERIVED from operations verified live on 2026-09-05;
+  they describe what a server would expose if anyone built one. Nobody has.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: none
+  verified: searched
+  note: >-
+    `mode: none` is the finding, not a placeholder. No remote MCP endpoint and no
+    stdio package exists for this provider. `auth: none` records that the
+    underlying API needs no credential — a server built against it would need no
+    OAuth flow, which is unusual and makes ATF an easy target for one.
+  probes:
+    - url: https://www.atf.gov/.well-known/ai-plugin.json
+      status: 403
+    - url: https://regulations.atf.gov/.well-known/oauth-protected-resource
+      status: 200
+      note: HTML site shell, not a discovery document.
+    - url: https://registry.npmjs.org/-/v1/search?text=atf%20firearms
+      status: 200
+      note: >-
+        No ATF-published package. The only firearms-adjacent MCP result is
+        `gunsnation-mcp`, a third-party wrapper over a commercial firearms
+        database with no ATF affiliation.
+candidate_tools:
+  - name: list_regulation_versions
+    description: List every ATF CFR part in eRegulations and each effective version.
+    backing_operation: listRegulationVersions
+    http: GET https://regulations.atf.gov/api/regulation
+    input_schema:
+      type: object
+      properties: {}
+  - name: list_part_versions
+    description: List the effective versions of one ATF CFR part.
+    backing_operation: listPartVersions
+    http: GET https://regulations.atf.gov/api/regulation/{part}
+    input_schema:
+      type: object
+      required: [part]
+      properties:
+        part:
+          type: string
+          enum: ['447', '478', '479', '555', '646', '771']
+  - name: get_regulation_tree
+    description: >-
+      Retrieve the full text tree of one ATF CFR part as it stood at one effective
+      version.
+    backing_operation: getRegulationTree
+    http: GET https://regulations.atf.gov/api/regulation/{part}/{version}
+    input_schema:
+      type: object
+      required: [part, version]
+      properties:
+        part: { type: string, enum: ['447', '478', '479', '555', '646', '771'] }
+        version: { type: string, description: Federal Register document number. }
+  - name: search_regulations
+    description: Full-text search across ATF regulation text, optionally scoped to a part or version.
+    backing_operation: searchRegulationText
+    http: GET https://regulations.atf.gov/api/search
+    input_schema:
+      type: object
+      required: [q]
+      properties:
+        q: { type: string }
+        regulation: { type: string, enum: ['447', '478', '479', '555', '646', '771'] }
+        version: { type: string }
+        page: { type: integer, minimum: 0 }
+  - name: list_notices
+    description: List Federal Register notices that amend the ATF CFR parts.
+    backing_operation: listNotices
+    http: GET https://regulations.atf.gov/api/notice
+    input_schema:
+      type: object
+      properties:
+        part: { type: string }
+  - name: get_notice
+    description: Retrieve one Federal Register notice with its verbatim amendment instructions.
+    backing_operation: getNotice
+    http: GET https://regulations.atf.gov/api/notice/{documentNumber}
+    input_schema:
+      type: object
+      required: [documentNumber]
+      properties:
+        documentNumber: { type: string }
+  - name: diff_regulation_versions
+    description: Difference between two effective versions of an ATF CFR part.
+    backing_operation: getVersionDiff
+    http: GET https://regulations.atf.gov/api/diff/{part}/{older}/{newer}
+    input_schema:
+      type: object
+      required: [part, older, newer]
+      properties:
+        part: { type: string }
+        older: { type: string }
+        newer: { type: string }
+  - name: query_federal_firearms_licensees
+    description: >-
+      Query the 77,514 geocoded Federal Firearms Licensee premises by attribute or
+      geometry.
+    backing_operation: null
+    http: GET https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/Federal_Firearm_Licensees_locations/FeatureServer/0/query
+    input_schema:
+      type: object
+      required: [where]
+      properties:
+        where: { type: string, default: '1=1' }
+        outFields: { type: string, default: '*' }
+        resultOffset: { type: integer }
+        resultRecordCount: { type: integer, maximum: 2000 }
+        f: { type: string, enum: [json, geojson], default: json }
+    note: >-
+      Backed by an Esri GeoServices endpoint, not by an OpenAPI operation. Cap is
+      maxRecordCount 2000 per page; a full walk is 39 pages.
+  - name: query_atf_offices
+    description: Query the 537 ATF field division and office locations.
+    backing_operation: null
+    http: GET https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/ATF_Office_Locations/FeatureServer/0/query
+    input_schema:
+      type: object
+      required: [where]
+      properties:
+        where: { type: string, default: '1=1' }
+        outFields: { type: string, default: '*' }
+        f: { type: string, enum: [json, geojson], default: json }
+safety_notes:
+  - >-
+    Every candidate tool is read-only. There is no ATF operation an agent could
+    call that changes anything.
+  - >-
+    A server implementing these MUST check Content-Type before parsing: the
+    eRegulations app answers HTTP 200 with an HTML page for an unknown part or
+    notice id, so a tool that trusts the status code will return a web page to the
+    model as if it were regulatory text. See
+    errors/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--problem-types.yml.
+  - >-
+    Federal Firearms Licensee records are premises addresses of named businesses
+    and, in the case of home-based licensees, of individuals. They are lawfully
+    published by ATF, but a tool that bulk-exports them should say so plainly to
+    the user.

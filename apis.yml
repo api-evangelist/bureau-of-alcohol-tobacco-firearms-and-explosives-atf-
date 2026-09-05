@@ -7,16 +7,22 @@ tags:
   - Explosives
   - Federal-Government
   - Firearms
+  - Geospatial
   - Law Enforcement
+  - Open Data
   - Public Safety
+  - Regulations
   - Tobacco
 tags_raw:
   - Alcohol
   - Explosives
   - Federal Government
   - Firearms
+  - Geospatial
   - Law Enforcement
+  - Open Data
   - Public Safety
+  - Regulations
   - Tobacco
 type: Index
 kind: government
@@ -46,8 +52,8 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-.png
 access: 3rd-Party
 created: '2024-11-21'
-modified: '2026-04-21'
-position: Consuming
+modified: '2026-09-05'
+position: Producing
 description: >-
   ATF is a law enforcement agency in the United States Department of Justice
   that protects communities from violent criminals, criminal organizations, the
@@ -75,8 +81,8 @@ apis:
     properties:
       - url: https://www.atf.gov/firearms/firearms-trace-data-2022
         type: Documentation
-      - url: https://catalog.data.gov/dataset?organization=atf-gov
-        type: DataAPI
+      - url: https://www.atf.gov/resource-center/data-statistics/firearms-trace-data-reports
+        type: APIReference
     description: >-
       ATF publishes annual firearms trace data reports covering the source and
       age of crime guns traced by law enforcement agencies across the United
@@ -104,6 +110,109 @@ apis:
       ATF publishes listings of all active Federal Firearms Licensees (FFLs)
       by state. The data is available as downloadable files and can be accessed
       programmatically for compliance verification purposes.
+  - aid: >-
+      bureau-of-alcohol-tobacco-firearms-and-explosives-atf-:atf-eregulations-api
+    name: ATF eRegulations API
+    tags:
+      - Regulations
+      - Federal-Government
+      - Firearms
+      - Explosives
+      - Compliance
+      - Legal
+    tags_raw:
+      - Regulations
+      - Federal Government
+      - Firearms
+      - Explosives
+      - Compliance
+      - Legal
+    humanURL: https://regulations.atf.gov/
+    baseURL: https://regulations.atf.gov/api
+    properties:
+      - url: openapi/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--eregulations-openapi.yml
+        type: OpenAPI
+      - url: overlays/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--eregulations-overlay.yaml
+        type: Overlay
+      - url: https://regulations.atf.gov/
+        type: Documentation
+      - url: https://regulations.atf.gov/api/regulation
+        type: APIReference
+    description: >-
+      A read-only JSON API over the ATF regulations in Title 27 of the Code of
+      Federal Regulations — Parts 447, 478, 479, 555, 646 and 771 — served by ATF's
+      eRegulations deployment. It exposes the full nested regulation text tree at
+      any effective version, the Federal Register notices that amended it with
+      their verbatim amendment instructions, version-to-version diffs, and
+      full-text search. Every state of a regulation is identified by the Federal
+      Register document number that produced it, so regulation text and rulemaking
+      history join on a single key. Anonymous, free and unmetered; ATF publishes no
+      OpenAPI for it, and the description in this repository was modeled by API
+      Evangelist from live probes.
+  - aid: >-
+      bureau-of-alcohol-tobacco-firearms-and-explosives-atf-:atf-ffl-locations-feature-service
+    name: ATF Federal Firearm Licensee Locations (ArcGIS Feature Service)
+    tags:
+      - Firearms
+      - Federal Firearms Licensees
+      - Federal-Government
+      - Geospatial
+      - Open Data
+    tags_raw:
+      - Firearms
+      - Federal Firearms Licensees
+      - Federal Government
+      - Geospatial
+      - Open Data
+    humanURL: https://opendata-atf-geoplatform.hub.arcgis.com/datasets/e7a13c9919314e51b240031e697ae095_0
+    baseURL: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/Federal_Firearm_Licensees_locations/FeatureServer
+    properties:
+      - url: geoservices/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--ffl-locations-featureserver.json
+        type: DataContract
+      - url: json-schema/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--ffl-locations.json
+        type: JSONSchema
+      - url: https://opendata-atf-geoplatform.hub.arcgis.com/datasets/e7a13c9919314e51b240031e697ae095_0
+        type: Documentation
+    description: >-
+      An anonymous Esri GeoServices REST feature service carrying 77,514 geocoded
+      Federal Firearms Licensee premises, published by ATF's National Geospatial
+      Intelligence Branch from the same source as the agency's downloadable FFL
+      listing. Ninety attribute fields: the licensee identity and premises and
+      mailing addresses in the USER_ columns, the licence number decomposed across
+      five integer columns, and Esri geocoder match quality in the rest. Query-only
+      at maxRecordCount 2000, with CSV, GeoJSON, KML and Shapefile downloads
+      offered alongside it on ATF's ArcGIS Hub open-data site.
+  - aid: >-
+      bureau-of-alcohol-tobacco-firearms-and-explosives-atf-:atf-office-locations-feature-service
+    name: ATF Office Locations (ArcGIS Feature Service)
+    tags:
+      - Federal-Government
+      - Law Enforcement
+      - Geospatial
+      - Open Data
+      - Locations
+    tags_raw:
+      - Federal Government
+      - Law Enforcement
+      - Geospatial
+      - Open Data
+      - Locations
+    humanURL: https://opendata-atf-geoplatform.hub.arcgis.com/datasets/8456bb4e8e68446aa27e3061ab6d4ac9_0
+    baseURL: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/ATF_Office_Locations/FeatureServer
+    properties:
+      - url: geoservices/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--office-locations-featureserver.json
+        type: DataContract
+      - url: json-schema/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--office-locations.json
+        type: JSONSchema
+      - url: https://opendata-atf-geoplatform.hub.arcgis.com/datasets/8456bb4e8e68446aa27e3061ab6d4ac9_0
+        type: Documentation
+    description: >-
+      An anonymous Esri GeoServices REST feature service listing 537 ATF offices
+      and field divisions across the United States, with office type, name, street
+      address, city, state, ZIP and the field division each office rolls up to.
+      Query and Extract capabilities, a stable globalid per record, and downloads
+      in CSV, GeoJSON, KML, Shapefile, GeoPackage, File Geodatabase and Excel from
+      ATF's ArcGIS Hub open-data site.
 common:
   - type: DomainSecurity
     url: security/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--domain-security.yml
@@ -116,12 +225,53 @@ common:
   - type: PrivacyPolicy
     url: https://www.atf.gov/privacy-policy
   - type: Data Portal
-    url: https://catalog.data.gov/dataset?organization=atf-gov
+    url: https://opendata-atf-geoplatform.hub.arcgis.com/
   - type: Publications
     url: https://www.atf.gov/resource-center/publications
   - type: Statistics
     url: https://www.atf.gov/resource-center/data-statistics
+  - type: OpenAPI
+    url: openapi/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--eregulations-openapi.yml
+  - type: Overlay
+    url: overlays/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--eregulations-overlay.yaml
+  - type: JSONSchema
+    url: json-schema/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--ffl-locations.json
+  - type: DataModel
+    url: data-model/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--data-model.yml
+  - type: Conformance
+    url: conformance/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--conformance.yml
+  - type: Authentication
+    url: authentication/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--authentication.yml
+  - type: Conventions
+    url: conventions/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--conventions.yml
+  - type: ErrorCatalog
+    url: errors/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--lifecycle.yml
+  - type: RateLimits
+    url: rate-limits/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--rate-limits.yml
+  - type: Plans
+    url: plans/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--plans-pricing.yml
+  - type: Packages
+    url: packages/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--packages.yml
+  - type: MCPServer
+    url: mcp/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--mcp.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--llms.txt
+  - type: FinOps
+    url: finops/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--finops.yml
+  - type: Documentation
+    url: https://regulations.atf.gov/
+  - type: APIReference
+    url: https://regulations.atf.gov/api/regulation
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 specificationVersion: '0.23'
+x-enrichment:
+  date: '2026-09-05'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v3

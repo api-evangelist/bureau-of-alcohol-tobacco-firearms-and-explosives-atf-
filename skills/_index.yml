@@ -1,0 +1,36 @@
+generated: '2026-09-05'
+method: generated
+provider: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
+providerId: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
+source: >-
+  Written by API Evangelist on 2026-09-05. ATF publishes no skills, no AGENTS.md
+  and no agent documentation — searched atf.gov, regulations.atf.gov and the
+  atfweb GitHub organization. Every operationId referenced below exists in
+  openapi/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--eregulations-openapi.yml
+  or, for the ArcGIS flows, in the service descriptors saved under geoservices/.
+description: >-
+  Two packaged agent skills covering the two things ATF's public surface can
+  actually do: read versioned Title 27 CFR text with the Federal Register notice
+  that produced it, and query the two public geospatial layers.
+skills:
+  - name: track-atf-cfr-amendment
+    file: bureau-of-alcohol-tobacco-firearms-and-explosives-atf--track-cfr-amendment.md
+    api: ATF eRegulations API
+    operations: [listPartVersions, getRegulationTree, getNotice, getVersionDiff]
+    summary: >-
+      Answer what an ATF regulation says now, when it last changed, and which
+      rulemaking changed it — with the federalregister.gov citation.
+  - name: find-atf-federal-firearms-licensees
+    file: bureau-of-alcohol-tobacco-firearms-and-explosives-atf--find-federal-firearms-licensees.md
+    api: ATF Federal Firearm Licensees locations (ArcGIS Feature Service)
+    operations: [query_federal_firearms_licensees, query_atf_offices]
+    summary: >-
+      Locate FFL premises and ATF offices by attribute or geometry, paging within
+      the 2000-record transfer limit.
+shared_rules:
+  - >-
+    Branch on Content-Type, not on the HTTP status. Both platforms return 200 for
+    conditions that are logically errors — eRegulations serves an HTML shell for an
+    unknown resource, ArcGIS embeds {"error":{...}} in a 200 body.
+  - Read-only surface. No skill here can change anything at ATF.
+  - No credential is required, and none should ever be sent.

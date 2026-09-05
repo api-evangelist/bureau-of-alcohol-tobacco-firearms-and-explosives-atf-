@@ -1,0 +1,275 @@
+{
+	"@context": "https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld",
+	"@type": "dcat:Catalog",
+	"conformsTo": "https://project-open-data.cio.gov/v1.1/schema",
+	"describedBy": "https://project-open-data.cio.gov/v1.1/schema/catalog.json",
+	"dataset": [
+		{
+			"@type": "dcat:Dataset",
+			"identifier": "https://www.arcgis.com/home/item.html?id=d34a361ae26a4afa97423249d602451b",
+			"landingPage": "https://opendata-atf-geoplatform.hub.arcgis.com/content/d34a361ae26a4afa97423249d602451b",
+			"title": "ATF Office Locations",
+			"description": "<p><span style=\"background-color:rgb(255,255,255);color:rgb(27,27,27);font-family:&quot;Public Sans Web&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;font-size:16px;\"><span style=\"-webkit-text-stroke-width:0px;display:inline !important;float:none;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-decoration-color:initial;text-decoration-style:initial;text-decoration-thickness:initial;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;\">ATF has locations across the United States and several other countries including Canada, The Bahamas, Jamaica, Trinidad and Tobago, Mexico, Colombia, El Salvador and the Netherlands. Each location has staff dedicated to stopping violent crime, enforcing federal firearms and explosives licensing and regulations, and assisting in criminal investigations.&nbsp;</span></span></p>",
+			"keyword": [
+				"ATF",
+				"Offices"
+			],
+			"issued": "2025-04-01T19:38:15.000Z",
+			"modified": "2026-06-17T19:38:00.000Z",
+			"publisher": {
+				"name": "{{source}}"
+			},
+			"contactPoint": {
+				"@type": "vcard:Contact",
+				"fn": "gregory.dreaper",
+				"hasEmail": "{{orgContactEmail}}"
+			},
+			"accessLevel": "public",
+			"spatial": "0.0000,0.0000,0.0000,0.0000",
+			"license": "",
+			"distribution": [
+				{
+					"@type": "dcat:Distribution",
+					"title": "ArcGIS Hub Dataset",
+					"format": "Web Page",
+					"mediaType": "text/html",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/content/d34a361ae26a4afa97423249d602451b"
+				}
+			],
+			"theme": [
+				"geospatial"
+			]
+		},
+		{
+			"@type": "dcat:Dataset",
+			"identifier": "https://www.arcgis.com/home/item.html?id=e7a13c9919314e51b240031e697ae095&sublayer=0",
+			"landingPage": "https://opendata-atf-geoplatform.hub.arcgis.com/datasets/e7a13c9919314e51b240031e697ae095_0",
+			"title": "Federal Firearm Licensees locations",
+			"description": "<div style='text-align:Left;'><div><div><p><span>This data was pull from the Tools and Services for Licensees section of the ATF.gov website that contains information for the firearms industry and its members, classifications of firearms and the interpretation of the regulations codified under 27 CFR, Parts 447, 478 and 479.</span></p><p><span>If you need assistance regarding firearms enforcement-related issues, please contact your local ATF office.</span></p></div></div></div>",
+			"keyword": [
+				"FFL",
+				"Firearms",
+				"ATF"
+			],
+			"issued": "2025-03-12T18:24:28.000Z",
+			"modified": "2026-06-17T18:22:09.973Z",
+			"publisher": {
+				"name": "Bureau of Alcohol, Tobacco, Firearms and Explosives"
+			},
+			"contactPoint": {
+				"@type": "vcard:Contact",
+				"fn": "gregory.dreaper@atf.gov_atf_geoplatform",
+				"hasEmail": "{{orgContactEmail}}"
+			},
+			"accessLevel": "public",
+			"spatial": "-171.6932,13.3734,145.7105,71.3016",
+			"license": "<DIV STYLE=\"text-align:Left;\"><P><SPAN>The data herein, including but not limited to geographic data, tabular data, analytical data, electronic data structures or files, are provided \"as is\" without warranty of any kind, either expressed or implied, or statutory, including, but not limited to, the implied warranties or merchantability and fitness for a particular purpose.  The entire risk as to the quality and performance of the data is assumed by the user. No guarantee of accuracy is granted, nor is any responsibility for reliance thereon assumed.</SPAN></P><P><SPAN>In no event shall the Bureau of Alcohol, Tobacco, Firearms and Explosives, National Geospatial Intelligence Branch be liable for direct, indirect, incidental, consequential, or special damages of any kind, including, but not limited to, loss of anticipated profits or benefits arising out of use of or reliance on the data. The Spatial Data Branch does not accept liability for any damages or misrepresentation caused by inaccuracies in the data or as a result of changes to the data caused by system transfers or other transformations or conversions, nor is there responsibility assumed to maintain the data in any manner or form.</SPAN></P><P><SPAN>These data have been developed from the best available sources.  Although efforts have been made to ensure that the data are accurate and reliable, errors and variable conditions originating from physical sources used to develop the data may be reflected in the data supplied.  Users must be aware of these conditions and bear responsibility for the appropriate use of the information with respect to possible errors, scale, resolution, rectification, positional accuracy, development methodology, time period, environmental and climatic conditions and other circumstances specific to these data.  The user is responsible for understanding the accuracy limitations of the data provided herein.  The burden for determining fitness for use lies entirely with the user.  The user should refer to the accompanying.</SPAN></P></DIV>",
+			"distribution": [
+				{
+					"@type": "dcat:Distribution",
+					"title": "ArcGIS Hub Dataset",
+					"format": "Web Page",
+					"mediaType": "text/html",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/datasets/e7a13c9919314e51b240031e697ae095_0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "ArcGIS GeoService",
+					"format": "ArcGIS GeoServices REST API",
+					"mediaType": "application/json",
+					"accessURL": "https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/Federal_Firearm_Licensees_locations/FeatureServer/0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "CSV",
+					"format": "CSV",
+					"mediaType": "text/csv",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/api/download/v1/items/e7a13c9919314e51b240031e697ae095/csv?layers=0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "Shapefile",
+					"format": "ZIP",
+					"mediaType": "application/zip",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/api/download/v1/items/e7a13c9919314e51b240031e697ae095/shapefile?layers=0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "GeoJSON",
+					"format": "GeoJSON",
+					"mediaType": "application/vnd.geo+json",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/api/download/v1/items/e7a13c9919314e51b240031e697ae095/geojson?layers=0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "KML",
+					"format": "KML",
+					"mediaType": "application/vnd.google-earth.kml+xml",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/api/download/v1/items/e7a13c9919314e51b240031e697ae095/kml?layers=0"
+				}
+			],
+			"theme": [
+				"geospatial"
+			]
+		},
+		{
+			"@type": "dcat:Dataset",
+			"identifier": "https://www.arcgis.com/home/item.html?id=8456bb4e8e68446aa27e3061ab6d4ac9&sublayer=0",
+			"landingPage": "https://opendata-atf-geoplatform.hub.arcgis.com/datasets/8456bb4e8e68446aa27e3061ab6d4ac9_0",
+			"title": "ATF Office Locations",
+			"description": "<div>This feature layer has attribute information for the ATF office locations. Please contact NGIB (atfgissupport@atf.gov) for any questions, concerns or suggested updates.<br /></div>",
+			"keyword": [
+				"ATF Wide",
+				"Criminal Enforcement",
+				"Field Operations",
+				"Offices",
+				"Field Division",
+				"FD",
+				"FO",
+				"Satellite Office",
+				"SO",
+				"ATF",
+				"IO",
+				"Industry Operations",
+				"IOI"
+			],
+			"issued": "2023-09-21T16:30:38.000Z",
+			"modified": "2026-04-16T20:00:00.203Z",
+			"publisher": {
+				"name": "{{source}}"
+			},
+			"contactPoint": {
+				"@type": "vcard:Contact",
+				"fn": "gregory.dreaper@atf.gov_atf_geoplatform",
+				"hasEmail": "{{orgContactEmail}}"
+			},
+			"accessLevel": "public",
+			"spatial": "-157.8624,13.4858,144.7681,61.2155",
+			"license": "<p style=\"margin:5.0pt 0in 12.0pt .5in;\"><span style=\"color:rgb(255,0,0);font-family:Arial, sans-serif;font-size:15.3333px;\">CUI</span></p><p style=\"margin:5pt 0in 12pt 0.5in;\">METADATA ACCESS &amp; USE CONSTRAINTS</p><p style=\"margin:5pt 0in 12pt 0.5in;\">The data herein, including but not limited to geographic data, tabular data, analytical data, electronic data structures or files, are provided \"as is\" without warranty of any kind, either expressed or implied, or statutory, including, but not limited to, the implied warranties or merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the data is assumed by the user.No guarantee of accuracy is granted, nor is any responsibility for reliance thereon assumed.</p><p style=\"margin:5pt 0in 12pt 0.5in;\">In no event shall the Bureau of Alcohol, Tobacco, Firearms and Explosives, National Geospatial Intelligence Branch be liable for direct, indirect, incidental, consequential, or special damages of any kind, including, but not limited to, loss of anticipated profits or benefits arising out of use of or reliance on the data. The Spatial Data Branch does not accept liability for any damages or misrepresentation caused by inaccuracies in the data or as a result of changes to the data caused by system transfers or other transformations or conversions, nor is there responsibility assumed to maintain the data in any manner or form.</p><p style=\"margin:5pt 0in 12pt 0.5in;\">These data have been developed from the best available sources. Although efforts have been made to ensure that the data are accurate and reliable, errors and variable conditions originating from physical sources used to develop the data may be reflected in the data supplied. Users must be aware of these conditions and bear responsibility for the appropriate use of the information with respect to possible errors, scale, resolution, rectification, positional accuracy, development methodology, time period, environmental and climatic conditions and other circumstances specific to these data. The user is responsible for understanding the accuracy limitations of the data provided herein. The burden for determining fitness for use lies entirely with the user. The user should refer to the accompanying.</p><p style=\"margin:5pt 0in 12pt 0.5in;\">Extra Info Here --.....</p>",
+			"distribution": [
+				{
+					"@type": "dcat:Distribution",
+					"title": "ArcGIS Hub Dataset",
+					"format": "Web Page",
+					"mediaType": "text/html",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/datasets/8456bb4e8e68446aa27e3061ab6d4ac9_0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "ArcGIS GeoService",
+					"format": "ArcGIS GeoServices REST API",
+					"mediaType": "application/json",
+					"accessURL": "https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/ATF_Office_Locations/FeatureServer/0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "CSV",
+					"format": "CSV",
+					"mediaType": "text/csv",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/api/download/v1/items/8456bb4e8e68446aa27e3061ab6d4ac9/csv?layers=0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "Shapefile",
+					"format": "ZIP",
+					"mediaType": "application/zip",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/api/download/v1/items/8456bb4e8e68446aa27e3061ab6d4ac9/shapefile?layers=0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "GeoJSON",
+					"format": "GeoJSON",
+					"mediaType": "application/vnd.geo+json",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/api/download/v1/items/8456bb4e8e68446aa27e3061ab6d4ac9/geojson?layers=0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "KML",
+					"format": "KML",
+					"mediaType": "application/vnd.google-earth.kml+xml",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/api/download/v1/items/8456bb4e8e68446aa27e3061ab6d4ac9/kml?layers=0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "File Geodatabase",
+					"format": "ZIP",
+					"mediaType": "application/zip",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/api/download/v1/items/8456bb4e8e68446aa27e3061ab6d4ac9/filegdb?layers=0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "Feature Collection",
+					"format": "TXT",
+					"mediaType": "text/plain",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/api/download/v1/items/8456bb4e8e68446aa27e3061ab6d4ac9/featureCollection?layers=0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "Excel",
+					"format": "XLSX",
+					"mediaType": "application/vnd.ms-excel",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/api/download/v1/items/8456bb4e8e68446aa27e3061ab6d4ac9/excel?layers=0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "GeoPackage",
+					"format": "GPKG",
+					"mediaType": "application/geopackage+sqlite3",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/api/download/v1/items/8456bb4e8e68446aa27e3061ab6d4ac9/geoPackage?layers=0"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "SQLite Geodatabase",
+					"format": "GDB",
+					"mediaType": "application/geopackage+sqlite3",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/api/download/v1/items/8456bb4e8e68446aa27e3061ab6d4ac9/sqlite?layers=0"
+				}
+			],
+			"theme": [
+				"geospatial"
+			]
+		},
+		{
+			"@type": "dcat:Dataset",
+			"identifier": "https://www.arcgis.com/home/item.html?id=a31c1692aec744b79e7aba80cce6b5ed",
+			"landingPage": "https://opendata-atf-geoplatform.hub.arcgis.com/content/a31c1692aec744b79e7aba80cce6b5ed",
+			"title": "OpenData",
+			"description": "{{description}}",
+			"keyword": [
+				"Hub Site"
+			],
+			"issued": "2023-04-28T15:10:17.000Z",
+			"modified": "2023-09-28T18:00:55.000Z",
+			"publisher": {
+				"name": "{{source}}"
+			},
+			"contactPoint": {
+				"@type": "vcard:Contact",
+				"fn": "matthew.davis@atf.gov_atf_geoplatform",
+				"hasEmail": "{{orgContactEmail}}"
+			},
+			"accessLevel": "public",
+			"spatial": "-161.6968,-72.6727,161.6968,80.6945",
+			"license": "",
+			"distribution": [
+				{
+					"@type": "dcat:Distribution",
+					"title": "ArcGIS Hub Dataset",
+					"format": "Web Page",
+					"mediaType": "text/html",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com/content/a31c1692aec744b79e7aba80cce6b5ed"
+				},
+				{
+					"@type": "dcat:Distribution",
+					"title": "ArcGIS GeoService",
+					"format": "ArcGIS GeoServices REST API",
+					"mediaType": "application/json",
+					"accessURL": "https://opendata-atf-geoplatform.hub.arcgis.com"
+				}
+			],
+			"theme": [
+				"geospatial"
+			]
+		}
+	]
+}

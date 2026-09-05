@@ -1,0 +1,803 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/main/json-schema/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--ffl-locations.json",
+  "title": "Federal Firearm License Location",
+  "description": "Attribute schema for the ATF public ArcGIS Feature Layer 'Federal Firearm License Locations'. DERIVED on 2026-09-05 from the layer's own field definitions fetched from https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/Federal_Firearm_Licensees_locations/FeatureServer/0?f=json \u2014 every property name, type and length below is copied from that document. Geometry is carried outside `attributes` by the GeoServices envelope (geometryType esriGeometryPoint, spatial reference EPSG:4269).",
+  "x-generated": "2026-09-05",
+  "x-method": "derived",
+  "x-source": "https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/Federal_Firearm_Licensees_locations/FeatureServer/0?f=json",
+  "type": "object",
+  "properties": {
+    "ObjectID": {
+      "type": "integer",
+      "title": "ObjectID",
+      "description": "ArcGIS field ObjectID (esriFieldTypeOID)"
+    },
+    "Status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Status",
+      "description": "ArcGIS field Status (esriFieldTypeString)",
+      "maxLength": 1
+    },
+    "Score": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "title": "Score",
+      "description": "ArcGIS field Score (esriFieldTypeDouble)"
+    },
+    "Match_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Match_type",
+      "description": "ArcGIS field Match_type (esriFieldTypeString)",
+      "maxLength": 2
+    },
+    "Match_addr": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Match Address",
+      "description": "ArcGIS field Match_addr (esriFieldTypeString)",
+      "maxLength": 500
+    },
+    "LongLabel": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Long Label",
+      "description": "ArcGIS field LongLabel (esriFieldTypeString)",
+      "maxLength": 500
+    },
+    "ShortLabel": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Short Label",
+      "description": "ArcGIS field ShortLabel (esriFieldTypeString)",
+      "maxLength": 500
+    },
+    "Addr_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Address Type",
+      "description": "ArcGIS field Addr_type (esriFieldTypeString)",
+      "maxLength": 20
+    },
+    "Type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Type",
+      "description": "ArcGIS field Type (esriFieldTypeString)",
+      "maxLength": 50
+    },
+    "PlaceName": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Place Name",
+      "description": "ArcGIS field PlaceName (esriFieldTypeString)",
+      "maxLength": 200
+    },
+    "Place_addr": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Place Address",
+      "description": "ArcGIS field Place_addr (esriFieldTypeString)",
+      "maxLength": 500
+    },
+    "Phone": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Phone Number",
+      "description": "ArcGIS field Phone (esriFieldTypeString)",
+      "maxLength": 30
+    },
+    "URL": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "URL",
+      "description": "ArcGIS field URL (esriFieldTypeString)",
+      "maxLength": 250
+    },
+    "Rank": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "title": "Rank",
+      "description": "ArcGIS field Rank (esriFieldTypeDouble)"
+    },
+    "AddBldg": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Address Building",
+      "description": "ArcGIS field AddBldg (esriFieldTypeString)",
+      "maxLength": 125
+    },
+    "AddNum": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Address Number",
+      "description": "ArcGIS field AddNum (esriFieldTypeString)",
+      "maxLength": 50
+    },
+    "AddNumFrom": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Address Number From",
+      "description": "ArcGIS field AddNumFrom (esriFieldTypeString)",
+      "maxLength": 50
+    },
+    "AddNumTo": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Address Number To",
+      "description": "ArcGIS field AddNumTo (esriFieldTypeString)",
+      "maxLength": 50
+    },
+    "AddRange": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Address Range",
+      "description": "ArcGIS field AddRange (esriFieldTypeString)",
+      "maxLength": 100
+    },
+    "Side": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Side",
+      "description": "ArcGIS field Side (esriFieldTypeString)",
+      "maxLength": 1
+    },
+    "StPreDir": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Prefix Directional",
+      "description": "ArcGIS field StPreDir (esriFieldTypeString)",
+      "maxLength": 12
+    },
+    "StPreType": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Prefix Type",
+      "description": "ArcGIS field StPreType (esriFieldTypeString)",
+      "maxLength": 50
+    },
+    "StName": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Street Name",
+      "description": "ArcGIS field StName (esriFieldTypeString)",
+      "maxLength": 150
+    },
+    "StType": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Suffix Type",
+      "description": "ArcGIS field StType (esriFieldTypeString)",
+      "maxLength": 30
+    },
+    "StDir": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Suffix Directional",
+      "description": "ArcGIS field StDir (esriFieldTypeString)",
+      "maxLength": 20
+    },
+    "BldgComp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Building Complex",
+      "description": "ArcGIS field BldgComp (esriFieldTypeString)",
+      "maxLength": 125
+    },
+    "BldgType": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Building Type",
+      "description": "ArcGIS field BldgType (esriFieldTypeString)",
+      "maxLength": 20
+    },
+    "BldgName": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Building Name",
+      "description": "ArcGIS field BldgName (esriFieldTypeString)",
+      "maxLength": 50
+    },
+    "LevelType": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Level Type",
+      "description": "ArcGIS field LevelType (esriFieldTypeString)",
+      "maxLength": 20
+    },
+    "LevelName": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Level Name",
+      "description": "ArcGIS field LevelName (esriFieldTypeString)",
+      "maxLength": 50
+    },
+    "UnitType": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Unit Type",
+      "description": "ArcGIS field UnitType (esriFieldTypeString)",
+      "maxLength": 20
+    },
+    "UnitName": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Unit Name",
+      "description": "ArcGIS field UnitName (esriFieldTypeString)",
+      "maxLength": 50
+    },
+    "SubAddr": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Subaddress",
+      "description": "ArcGIS field SubAddr (esriFieldTypeString)",
+      "maxLength": 250
+    },
+    "StAddr": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Street Address",
+      "description": "ArcGIS field StAddr (esriFieldTypeString)",
+      "maxLength": 300
+    },
+    "Block": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Block",
+      "description": "ArcGIS field Block (esriFieldTypeString)",
+      "maxLength": 120
+    },
+    "Sector": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Sector",
+      "description": "ArcGIS field Sector (esriFieldTypeString)",
+      "maxLength": 120
+    },
+    "Nbrhd": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Neighborhood",
+      "description": "ArcGIS field Nbrhd (esriFieldTypeString)",
+      "maxLength": 120
+    },
+    "District": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "District",
+      "description": "ArcGIS field District (esriFieldTypeString)",
+      "maxLength": 120
+    },
+    "City": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "City",
+      "description": "ArcGIS field City (esriFieldTypeString)",
+      "maxLength": 120
+    },
+    "MetroArea": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Metro Area",
+      "description": "ArcGIS field MetroArea (esriFieldTypeString)",
+      "maxLength": 120
+    },
+    "Subregion": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Subregion",
+      "description": "ArcGIS field Subregion (esriFieldTypeString)",
+      "maxLength": 120
+    },
+    "Region": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Region",
+      "description": "ArcGIS field Region (esriFieldTypeString)",
+      "maxLength": 120
+    },
+    "RegionAbbr": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Region Abbreviation",
+      "description": "ArcGIS field RegionAbbr (esriFieldTypeString)",
+      "maxLength": 50
+    },
+    "Territory": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Territory",
+      "description": "ArcGIS field Territory (esriFieldTypeString)",
+      "maxLength": 120
+    },
+    "Zone": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Zone",
+      "description": "ArcGIS field Zone (esriFieldTypeString)",
+      "maxLength": 100
+    },
+    "Postal": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Postal",
+      "description": "ArcGIS field Postal (esriFieldTypeString)",
+      "maxLength": 20
+    },
+    "PostalExt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Postal Extension",
+      "description": "ArcGIS field PostalExt (esriFieldTypeString)",
+      "maxLength": 10
+    },
+    "Country": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Country",
+      "description": "ArcGIS field Country (esriFieldTypeString)",
+      "maxLength": 30
+    },
+    "CntryName": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Country Name",
+      "description": "ArcGIS field CntryName (esriFieldTypeString)",
+      "maxLength": 100
+    },
+    "LangCode": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Language Code",
+      "description": "ArcGIS field LangCode (esriFieldTypeString)",
+      "maxLength": 5
+    },
+    "Distance": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "title": "Distance",
+      "description": "ArcGIS field Distance (esriFieldTypeDouble)"
+    },
+    "X": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "title": "X",
+      "description": "ArcGIS field X (esriFieldTypeDouble)"
+    },
+    "Y": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "title": "Y",
+      "description": "ArcGIS field Y (esriFieldTypeDouble)"
+    },
+    "DisplayX": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "title": "Display X",
+      "description": "ArcGIS field DisplayX (esriFieldTypeDouble)"
+    },
+    "DisplayY": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "title": "Display Y",
+      "description": "ArcGIS field DisplayY (esriFieldTypeDouble)"
+    },
+    "Xmin": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "title": "Minimum X",
+      "description": "ArcGIS field Xmin (esriFieldTypeDouble)"
+    },
+    "Xmax": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "title": "Maximum X",
+      "description": "ArcGIS field Xmax (esriFieldTypeDouble)"
+    },
+    "Ymin": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "title": "Minimum Y",
+      "description": "ArcGIS field Ymin (esriFieldTypeDouble)"
+    },
+    "Ymax": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "title": "Maximum Y",
+      "description": "ArcGIS field Ymax (esriFieldTypeDouble)"
+    },
+    "ExInfo": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Extra Info",
+      "description": "ArcGIS field ExInfo (esriFieldTypeString)",
+      "maxLength": 500
+    },
+    "MatchID": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "MatchID",
+      "description": "ArcGIS field MatchID (esriFieldTypeString)",
+      "maxLength": 500
+    },
+    "StrucType": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Structure Type",
+      "description": "ArcGIS field StrucType (esriFieldTypeString)",
+      "maxLength": 50
+    },
+    "StrucDet": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Structure Details",
+      "description": "ArcGIS field StrucDet (esriFieldTypeString)",
+      "maxLength": 50
+    },
+    "IN_Address": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Address or Place",
+      "description": "ArcGIS field IN_Address (esriFieldTypeString)",
+      "maxLength": 150
+    },
+    "IN_Address2": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Address2",
+      "description": "ArcGIS field IN_Address2 (esriFieldTypeString)",
+      "maxLength": 150
+    },
+    "IN_Address3": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Address3",
+      "description": "ArcGIS field IN_Address3 (esriFieldTypeString)",
+      "maxLength": 150
+    },
+    "IN_Neighborhood": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Neighborhood",
+      "description": "ArcGIS field IN_Neighborhood (esriFieldTypeString)",
+      "maxLength": 100
+    },
+    "IN_City": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "City",
+      "description": "ArcGIS field IN_City (esriFieldTypeString)",
+      "maxLength": 100
+    },
+    "IN_Subregion": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "County",
+      "description": "ArcGIS field IN_Subregion (esriFieldTypeString)",
+      "maxLength": 100
+    },
+    "IN_Region": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "State",
+      "description": "ArcGIS field IN_Region (esriFieldTypeString)",
+      "maxLength": 100
+    },
+    "IN_Postal": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "ZIP",
+      "description": "ArcGIS field IN_Postal (esriFieldTypeString)",
+      "maxLength": 20
+    },
+    "IN_PostalExt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "ZIP4",
+      "description": "ArcGIS field IN_PostalExt (esriFieldTypeString)",
+      "maxLength": 20
+    },
+    "IN_CountryCode": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "Country",
+      "description": "ArcGIS field IN_CountryCode (esriFieldTypeString)",
+      "maxLength": 100
+    },
+    "USER_LIC_REGN": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "LIC_REGN",
+      "description": "ArcGIS field USER_LIC_REGN (esriFieldTypeInteger)"
+    },
+    "USER_LIC_DIST": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "LIC_DIST",
+      "description": "ArcGIS field USER_LIC_DIST (esriFieldTypeInteger)"
+    },
+    "USER_LIC_CNTY": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "LIC_CNTY",
+      "description": "ArcGIS field USER_LIC_CNTY (esriFieldTypeInteger)"
+    },
+    "USER_LIC_TYPE": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "LIC_TYPE",
+      "description": "ArcGIS field USER_LIC_TYPE (esriFieldTypeInteger)"
+    },
+    "USER_LIC_XPRDTE": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "LIC_XPRDTE",
+      "description": "ArcGIS field USER_LIC_XPRDTE (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "USER_LIC_SEQN": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "LIC_SEQN",
+      "description": "ArcGIS field USER_LIC_SEQN (esriFieldTypeInteger)"
+    },
+    "USER_LICENSE_NAME": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "LICENSE_NAME",
+      "description": "ArcGIS field USER_LICENSE_NAME (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "USER_BUSINESS_NAME": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "BUSINESS_NAME",
+      "description": "ArcGIS field USER_BUSINESS_NAME (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "USER_PREMISE_STREET": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "PREMISE_STREET",
+      "description": "ArcGIS field USER_PREMISE_STREET (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "USER_PREMISE_CITY": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "PREMISE_CITY",
+      "description": "ArcGIS field USER_PREMISE_CITY (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "USER_PREMISE_STATE": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "PREMISE_STATE",
+      "description": "ArcGIS field USER_PREMISE_STATE (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "USER_PREMISE_ZIP_CODE": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "PREMISE_ZIP_CODE",
+      "description": "ArcGIS field USER_PREMISE_ZIP_CODE (esriFieldTypeInteger)"
+    },
+    "USER_MAIL_STREET": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "MAIL_STREET",
+      "description": "ArcGIS field USER_MAIL_STREET (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "USER_MAIL_CITY": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "MAIL_CITY",
+      "description": "ArcGIS field USER_MAIL_CITY (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "USER_MAIL_STATE": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "title": "MAIL_STATE",
+      "description": "ArcGIS field USER_MAIL_STATE (esriFieldTypeString)",
+      "maxLength": 8000
+    },
+    "USER_MAIL_ZIP_CODE": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "MAIL_ZIP_CODE",
+      "description": "ArcGIS field USER_MAIL_ZIP_CODE (esriFieldTypeInteger)"
+    },
+    "USER_VOICE_PHONE": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "title": "VOICE_PHONE",
+      "description": "ArcGIS field USER_VOICE_PHONE (esriFieldTypeBigInteger)"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "ObjectID"
+  ]
+}

@@ -1,0 +1,134 @@
+generated: '2026-09-05'
+method: probed
+provider: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
+providerId: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
+source: >-
+  Live anonymous probes on 2026-09-05 of the ATF eRegulations API
+  (regulations.atf.gov/api), the two public ATF ArcGIS feature services on
+  services6.arcgis.com, and the ATF ArcGIS Hub open-data catalog at
+  opendata-atf-geoplatform.hub.arcgis.com. Every `conforms: true` below cites a
+  URL that was fetched and read; every `conforms: false` was probed and missed.
+description: >-
+  What ATF's public API surface does and does not conform to. The affirmative
+  finding is a domain standard: ATF publishes a DCAT-US 1.1 / Project Open Data
+  v1.1 catalog, the machine-readable format the U.S. federal open-data policy
+  (OMB M-13-13) actually specifies, and it is self-declaring — the document names
+  its own `conformsTo` schema. The negative findings matter as much: there is no
+  OAuth, no OpenID Connect, no OGC API Features surface and no RFC 9457 problem
+  document anywhere on this provider.
+conformance:
+  - id: dcat-us-1.1
+    label: DCAT-US 1.1 (Project Open Data v1.1)
+    conforms: true
+    category: domain-standard
+    evidence: https://opendata-atf-geoplatform.hub.arcgis.com/data.json
+    detail: >-
+      HTTP 200, application/json. The document declares
+      "conformsTo": "https://project-open-data.cio.gov/v1.1/schema" and
+      "describedBy": "https://project-open-data.cio.gov/v1.1/schema/catalog.json",
+      with "@type": "dcat:Catalog" and four dcat:Dataset entries. Two of those
+      datasets name "Bureau of Alcohol, Tobacco, Firearms and Explosives" as
+      publisher. Saved verbatim to
+      data-portal/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--dcat-us.json.
+      This is the domain standard for a U.S. federal open-data publisher: an
+      agent that already speaks DCAT-US needs no bespoke connector to enumerate
+      ATF's datasets and their distributions.
+  - id: project-open-data-catalog-json
+    label: /data.json federal open-data catalog endpoint
+    conforms: true
+    category: domain-standard
+    evidence: https://opendata-atf-geoplatform.hub.arcgis.com/data.json
+    detail: >-
+      Served at the canonical `/data.json` path AND mirrored at
+      /api/feed/dcat-us/1.1.json (also HTTP 200). ATF datasets additionally appear
+      in the department-level catalog at https://www.justice.gov/data.json, where
+      "Federal Firearms Licensees" and "ATF Office Locations" carry
+      publisher.name "Bureau of Alcohol, Tobacco, Firearms and Explosives".
+  - id: esri-geoservices-rest
+    label: Esri ArcGIS GeoServices REST (Feature Service)
+    conforms: true
+    category: domain-standard
+    evidence: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/Federal_Firearm_Licensees_locations/FeatureServer?f=json
+    detail: >-
+      Both ATF feature services are self-describing GeoServices endpoints at
+      currentVersion 12, capabilities "Query" (FFL) and "Query,Extract"
+      (Offices), supportedQueryFormats JSON, maxRecordCount 2000. The service
+      descriptor IS the contract and is saved verbatim under geoservices/. The
+      DCAT catalog labels these distributions "ArcGIS GeoServices REST API" in
+      its own words.
+  - id: ogc-api-features
+    label: OGC API - Features
+    conforms: false
+    category: domain-standard
+    evidence: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/Federal_Firearm_Licensees_locations/OGCFeatureServer/conformance?f=json
+    detail: >-
+      Probed because the surface is geospatial and OGC is its market standard.
+      The OGCFeatureServer endpoint is not enabled: the response body is
+      {"error":{"code":400,"message":"Invalid URL"}}. There is no conformsTo[]
+      carrying opengis.net class URIs anywhere on this provider.
+  - id: ogc-ows-getcapabilities
+    label: OGC OWS (WMS / WFS GetCapabilities)
+    conforms: false
+    category: domain-standard
+    evidence: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/services/Federal_Firearm_Licensees_locations/WFSServer?service=WFS&request=GetCapabilities
+    detail: >-
+      HTTP 404 for both WFSServer and WMSServer on both services. ATF's Hub site
+      boilerplate advertises "API links for GeoServices, WMS, and WFS", but the
+      OWS endpoints are not published for these two layers. No *_Capabilities
+      XML document exists to save.
+  - id: oauth2
+    label: OAuth 2.0
+    conforms: false
+    category: security
+    evidence: https://www.atf.gov/.well-known/oauth-authorization-server
+    detail: >-
+      No authorization-server metadata on any ATF host. The public API surface is
+      entirely anonymous; there is no token, key or client registration to obtain.
+  - id: oidc
+    label: OpenID Connect Discovery
+    conforms: false
+    category: security
+    evidence: https://www.atf.gov/.well-known/openid-configuration
+    detail: Probed on every ATF host; no openid-configuration served.
+  - id: rfc9457
+    label: RFC 9457 Problem Details for HTTP APIs
+    conforms: false
+    category: errors
+    evidence: https://regulations.atf.gov/api/search
+    detail: >-
+      The one machine-readable error the surface produces is
+      HTTP 400 application/json {"reason": {"q": ["Missing data for required
+      field."]}} — a field-keyed validation envelope, not application/problem+json.
+      See errors/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--problem-types.yml.
+  - id: pagination
+    label: Documented pagination
+    conforms: true
+    category: conventions
+    evidence: https://regulations.atf.gov/api/search?q=firearm&page=1
+    detail: >-
+      Two different mechanisms, both observed working. eRegulations search takes a
+      zero-based `page` parameter and returns `total_hits`. The ArcGIS feature
+      layers declare advancedQueryCapabilities.supportsPagination true with
+      resultOffset / resultRecordCount and a maxRecordCount of 2000 against
+      77,514 FFL rows and 537 office rows. Neither is described in prose
+      documentation ATF publishes.
+  - id: idempotency
+    label: Idempotency keys
+    conforms: false
+    category: conventions
+    detail: >-
+      Not applicable rather than absent: the entire published surface is
+      read-only (HTTP GET, ArcGIS capabilities "Query"/"Extract"). There is no
+      mutating operation for an idempotency key to protect.
+    evidence: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/ATF_Office_Locations/FeatureServer?f=json
+  - id: openapi
+    label: Provider-published OpenAPI
+    conforms: false
+    category: contract
+    evidence: https://regulations.atf.gov/openapi.json
+    detail: >-
+      Probed /openapi.json, /openapi.yaml, /swagger.json, /v2/api-docs,
+      /v3/api-docs, /api-docs, /docs and /redoc on www.atf.gov, regulations.atf.gov,
+      eforms.atf.gov and fflezcheck.atf.gov. No host serves an OpenAPI document.
+      The description in openapi/ was modeled by API Evangelist from live probes;
+      it is not an ATF publication.

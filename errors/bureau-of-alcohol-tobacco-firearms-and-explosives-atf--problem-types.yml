@@ -1,0 +1,89 @@
+generated: '2026-09-05'
+method: probed
+provider: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
+providerId: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
+format: field-keyed-validation
+media_type: application/json
+source: >-
+  Observed by deliberately malforming live requests to
+  https://regulations.atf.gov/api/* and the ATF ArcGIS feature services on
+  2026-09-05. ATF publishes no error reference; every entry below is a response
+  that was actually returned.
+description: >-
+  ATF's public API surface does NOT emit RFC 9457 problem documents. Two different
+  error envelopes exist across two different platforms, and the single most
+  dangerous behaviour is not an error envelope at all — an unknown resource
+  returns HTTP 200 carrying an HTML web page.
+rfc9457: false
+envelopes:
+  - name: eRegulations validation envelope
+    media_type: application/json
+    shape: '{"reason": {"<field>": ["<message>", ...]}}'
+    example: '{"reason": {"q": ["Missing data for required field."]}}'
+  - name: ArcGIS GeoServices error envelope
+    media_type: application/json
+    shape: '{"error": {"code": <int>, "message": "<string>", "details": ["<string>"]}}'
+    example: '{"error":{"code":400,"message":"Invalid URL","details":["Invalid URL"]}}'
+problem_types:
+  - id: missing-required-parameter
+    status: 400
+    surface: https://regulations.atf.gov/api/search
+    title: Missing data for required field
+    envelope: eRegulations validation envelope
+    observed: 'GET /api/search (no q) -> 400 {"reason": {"q": ["Missing data for required field."]}}'
+    remediation: >-
+      Supply every required query parameter. On /api/search only `q` is required;
+      `regulation`, `version` and `page` are optional. The `reason` object is keyed
+      by parameter name, so a client can map the failure back to its own input
+      without string-matching a message.
+  - id: invalid-service-url
+    status: 400
+    surface: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/
+    title: Invalid URL
+    envelope: ArcGIS GeoServices error envelope
+    observed: >-
+      GET .../Federal_Firearm_Licensees_locations/OGCFeatureServer?f=json ->
+      HTTP 200 body {"error":{"code":400,"message":"Invalid URL","details":["Invalid URL"]}}
+    remediation: >-
+      NOTE THE STATUS MISMATCH: ArcGIS returns the error inside a 200 response.
+      A client must inspect the body for an `error` key on every GeoServices call,
+      not only on non-2xx responses. Here it means the endpoint type requested
+      (OGCFeatureServer) is not enabled on that service.
+  - id: soft-404-html-shell
+    status: 200
+    surface: https://regulations.atf.gov/api/
+    title: Unknown resource returns the HTML site shell, not a 404
+    envelope: none — text/html
+    observed: >-
+      GET /api/regulation/999 -> 200 text/html. GET /api/notice/does-not-exist ->
+      200 text/html. GET /api/regulation/478/2026-01141/478-11 -> 200 text/html.
+      All three return the eRegulations Django site page, not JSON and not an error.
+    remediation: >-
+      THE MOST IMPORTANT ENTRY IN THIS FILE. Branch on Content-Type, never on the
+      status code: treat a response as data only when Content-Type starts with
+      application/json. A naive client that trusts the 200 will hand an HTML page
+      to a JSON parser, or worse, to a model. There is no way to distinguish
+      "this CFR part does not exist" from "this path is not an API route" —
+      both produce the identical body.
+  - id: edge-refusal
+    status: 403
+    surface: https://www.atf.gov/
+    title: Akamai edge refusal on the main web property
+    envelope: none — text/html "Access Denied" with an errors.edgesuite.net reference
+    observed: >-
+      Most extension-bearing paths on www.atf.gov (.json in particular) return 403
+      with an Akamai reference id, while the site root and /robots.txt return 200
+      to the same client.
+    remediation: >-
+      This is a bot-management policy on ATF's public website, not an API error and
+      not evidence about what ATF publishes. It does not apply to
+      regulations.atf.gov or to the ArcGIS hosts, which answered every request.
+not_observed:
+  - status: 401
+    note: No authentication exists, so no 401 can be produced.
+  - status: 429
+    note: >-
+      No rate limit is published and none was hit during this pass. Absence of a
+      429 here is not a guarantee that none exists under load.
+  - status: 5xx
+    note: No server error was returned on any request during this pass.

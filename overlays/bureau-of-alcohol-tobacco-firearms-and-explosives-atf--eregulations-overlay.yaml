@@ -1,0 +1,72 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the ATF eRegulations API
+  version: 1.0.0
+extends: ../openapi/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--eregulations-openapi.yml
+x-generated: '2026-09-05'
+x-method: generated
+x-source: >-
+  Records the runtime behaviour API Evangelist observed on 2026-09-05 that a
+  consumer cannot learn from the endpoint shapes alone. Applied as an Overlay so
+  the base description stays a plain statement of what the endpoints are.
+actions:
+  - target: $.info
+    update:
+      x-soft-404-warning: >-
+        An unknown CFR part, version or notice id returns HTTP 200 with the
+        eRegulations HTML site page, not 404. Clients MUST branch on Content-Type.
+      x-rate-limits: >-
+        None published; no X-RateLimit-*, RateLimit-* or Retry-After header is
+        returned. Cache aggressively — regulation text changes at Federal Register
+        cadence.
+      x-status-page: none
+      x-deprecation-policy: none
+      x-sdks: none published
+  - target: $.paths['/search'].get
+    update:
+      x-pagination:
+        style: page-number
+        param: page
+        zero_based: true
+        total_field: total_hits
+        note: >-
+          No next/prev link is returned and page size is undocumented; derive page
+          count from total_hits and an observed page length.
+      x-observed:
+        q_firearm_total_hits: 1596
+        q_firearm_scoped_478_2026_01141_total_hits: 50
+  - target: $.paths['/regulation'].get
+    update:
+      x-observed-parts:
+        - part: '447'
+          versions: 10
+          latest_effective: '2022-08-24'
+        - part: '478'
+          versions: 24
+          latest_effective: '2026-01-22'
+        - part: '479'
+          versions: 8
+          latest_effective: '2023-01-31'
+        - part: '555'
+          versions: 12
+          latest_effective: '2019-12-26'
+        - part: '646'
+          versions: 2
+          latest_effective: '2014-08-11'
+        - part: '771'
+          versions: 1
+          latest_effective: '2019-12-26'
+      x-freshness-warning: >-
+        Coverage is uneven. 27 CFR 646 has not been reloaded since 2014; do not
+        present it as current law without saying so.
+  - target: $.paths['/diff/{part}/{older}/{newer}'].get
+    update:
+      x-empty-response-meaning: >-
+        An empty object means no diff is stored for that pair, NOT that the two
+        versions are identical. Observed on 478 between 2025-04872 and 2026-01141.
+  - target: $.paths['/notice/{documentNumber}'].get
+    update:
+      x-join-key: >-
+        documentNumber is the SAME string as the version id in
+        /regulation/{part}/{version}. A text lookup and a rulemaking lookup join on
+        it directly.

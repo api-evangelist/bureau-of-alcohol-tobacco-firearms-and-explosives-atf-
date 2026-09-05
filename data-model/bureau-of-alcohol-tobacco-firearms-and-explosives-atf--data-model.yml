@@ -1,0 +1,139 @@
+generated: '2026-09-05'
+method: derived
+provider: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
+providerId: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
+source: >-
+  Derived on 2026-09-05 from documents fetched in this pass: the eRegulations API
+  response bodies described in
+  openapi/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--eregulations-openapi.yml,
+  and the two ArcGIS layer descriptors saved verbatim under geoservices/. No
+  relationship below was assumed; each cites the field that carries it.
+description: >-
+  ATF's public data surface is two disconnected graphs. The regulatory graph
+  (regulations.atf.gov) links CFR parts to their effective versions to the Federal
+  Register notices that produced them. The geospatial graph (ArcGIS) is two flat
+  point layers with no foreign key to anything — notably, the Federal Firearms
+  Licensee layer carries a full licence number in four separate integer columns
+  but nothing joins it to the regulatory graph.
+entities:
+  - name: RegulationVersion
+    surface: eRegulations
+    identifier: version
+    id_form: >-
+      Federal Register document number, e.g. "2026-01141" or the older short form
+      "03-1657". Not a UUID, not sequential; sortable only via by_date.
+    fields: [version, by_date, regulation]
+    detail: One effective state of one CFR part, produced by one FR document.
+  - name: RegulationNode
+    surface: eRegulations
+    identifier: label
+    id_form: >-
+      An ARRAY of path segments, most significant first — ["478","11"] is
+      § 478.11. Also emitted as a joined string `label_string` ("478-113a") in
+      search results. A client joining these two forms must handle both.
+    fields: [label, text, node_type, title, lft, children]
+    detail: >-
+      Recursive nested-set tree. `node_type` observed as regtext and subpart at the
+      top; `lft` is the left-edge ordering key that makes document order
+      recoverable without walking children.
+  - name: Notice
+    surface: eRegulations
+    identifier: document_number
+    id_form: Federal Register document number — the same value used as a version id.
+    fields: [document_number, title, cfr_title, cfr_parts, fr_citation, fr_volume,
+             fr_url, publication_date, effective_on, comments_close, primary_agency,
+             primary_docket, dockets, regulation_id_numbers, versions, amendments,
+             section_by_section, supporting_documents, footnotes, meta]
+    detail: >-
+      A Federal Register rulemaking document. `amendments[]` carries the verbatim
+      instruction text and the authority citation — the actual legal change.
+  - name: Amendment
+    surface: eRegulations
+    identifier: null
+    fields: [instruction, cfr_part, authority]
+    detail: Embedded in Notice; has no independent identifier.
+  - name: SearchHit
+    surface: eRegulations
+    identifier: label_string
+    fields: [text, label, label_string, version, regulation, match_title,
+             paragraph_title, section_title, title]
+    detail: A projection of RegulationNode, not a separate entity.
+  - name: FederalFirearmLicenseeLocation
+    surface: ArcGIS Feature Service
+    identifier: ObjectID
+    id_form: >-
+      Esri surrogate integer, stable only within the layer and only until the layer
+      is republished. NOT the licence number.
+    record_count: 77514
+    fields_total: 90
+    detail: >-
+      Geocoded FFL premises. The business identity lives in the USER_* columns
+      copied from ATF's own FFL listing (USER_LICENSE_NAME, USER_BUSINESS_NAME,
+      USER_PREMISE_*, USER_MAIL_*, USER_VOICE_PHONE); everything else is Esri
+      geocoder output (Match_addr, Score, Addr_type, StPreDir, …) describing how
+      well the address resolved, not describing the licensee.
+    schema: json-schema/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--ffl-locations.json
+  - name: ATFOfficeLocation
+    surface: ArcGIS Feature Service
+    identifier: OBJECTID
+    record_count: 537
+    fields_total: 9
+    fields: [OBJECTID, user_office_type, user_office_name, user_address, user_city,
+             user_state, user_field_division, user_zipcode, globalid]
+    detail: ATF field divisions and offices. Also carries a stable `globalid` GUID.
+    schema: json-schema/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--office-locations.json
+relationships:
+  - from: RegulationVersion
+    to: RegulationNode
+    kind: has_one
+    via: /api/regulation/{regulation}/{version} returns the root node
+    confidence: high
+  - from: RegulationVersion
+    to: Notice
+    kind: belongs_to
+    via: RegulationVersion.version == Notice.document_number
+    confidence: high
+    note: >-
+      The join key is shared verbatim. GET /api/notice/2026-01141 returns the
+      notice whose document number is the version id of 27 CFR 478's current text.
+  - from: Notice
+    to: Amendment
+    kind: has_many
+    via: Notice.amendments[]
+    confidence: high
+  - from: Notice
+    to: RegulationVersion
+    kind: has_many
+    via: Notice.cfr_parts[] names the parts the notice amends
+    confidence: high
+  - from: RegulationNode
+    to: RegulationNode
+    kind: has_many
+    via: children[] (self-referential nested-set tree, ordered by lft)
+    confidence: high
+  - from: SearchHit
+    to: RegulationNode
+    kind: belongs_to
+    via: SearchHit.label == RegulationNode.label (and version, regulation)
+    confidence: high
+  - from: ATFOfficeLocation
+    to: ATFOfficeLocation
+    kind: has_many
+    via: user_field_division groups subordinate offices under a field division
+    confidence: medium
+    note: Grouping is by string value; there is no id column for a field division.
+composite_key_note: >-
+  FederalFirearmLicenseeLocation stores the FFL number decomposed across
+  USER_LIC_REGN, USER_LIC_DIST, USER_LIC_CNTY, USER_LIC_TYPE and USER_LIC_SEQN
+  (all integers). ATF's published FFL listing prints these concatenated as the
+  familiar 15-character licence number. The layer does not store the assembled
+  form, so a consumer must reassemble it to join against any other ATF source.
+absent_relationships:
+  - detail: >-
+      Nothing links FederalFirearmLicenseeLocation to the regulatory graph. There
+      is no key from a licensee to the CFR part that governs its licence type,
+      even though USER_LIC_TYPE encodes exactly that distinction.
+  - detail: >-
+      Nothing links either geospatial layer to ATF's firearms trace data reports,
+      which are published only as PDF and XLSX documents on atf.gov and have no
+      API at all.

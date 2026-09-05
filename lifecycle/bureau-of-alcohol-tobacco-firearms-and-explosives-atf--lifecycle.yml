@@ -1,0 +1,99 @@
+generated: '2026-09-05'
+method: probed
+provider: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
+providerId: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-
+source: >-
+  Live probes on 2026-09-05 plus a search of atf.gov, regulations.atf.gov and the
+  atfweb GitHub organization for any versioning, deprecation, SLA or status
+  commitment.
+summary: >-
+  ATF makes no lifecycle commitments about its API surface. There is no published
+  versioning policy, no deprecation policy, no Sunset or Deprecation header, no
+  SLA and no status page. This is an unusually consequential gap for a regulatory
+  data source: consumers of 27 CFR text and of the Federal Firearms Licensee list
+  are building compliance workflows on endpoints that carry no stability promise
+  and no notification channel if they change.
+versioning:
+  api_versioning: none
+  detail: >-
+    No /v1/ path segment, no version header, no media-type versioning on any
+    endpoint. What LOOKS like versioning is data versioning: eRegulations
+    identifies each state of a CFR part by the Federal Register document number
+    that produced it (/api/regulation/478/2026-01141), which is a citation, not an
+    interface version. The ArcGIS `currentVersion: 12` is the Esri platform
+    release.
+  data_versions_available:
+    - part: '447'
+      title: Importation of Arms, Ammunition and Implements of War
+      versions: 10
+      latest: '2022-08026'
+      latest_effective: '2022-08-24'
+    - part: '478'
+      title: Commerce in Firearms and Ammunition
+      versions: 24
+      latest: '2026-01141'
+      latest_effective: '2026-01-22'
+    - part: '479'
+      title: Machine Guns, Destructive Devices, and Certain Other Firearms
+      versions: 8
+      latest: '2023-01001'
+      latest_effective: '2023-01-31'
+    - part: '555'
+      title: Commerce in Explosives
+      versions: 12
+      latest: '2019-24570'
+      latest_effective: '2019-12-26'
+    - part: '646'
+      title: Contraband Cigarettes
+      versions: 2
+      latest: '2014-18842'
+      latest_effective: '2014-08-11'
+    - part: '771'
+      title: Rules of Practice in Explosive License and Permit Proceedings
+      versions: 1
+      latest: '2019-24570'
+      latest_effective: '2019-12-26'
+  note: >-
+    Version counts and dates above were read from GET /api/regulation/{part} on
+    2026-09-05. Note the spread: 27 CFR 478 is current to January 2026 while
+    27 CFR 646 has not been reloaded since 2014 — a consumer should not assume
+    every part is equally fresh.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  detail: >-
+    No RFC 8594 Sunset header and no Deprecation header on any response. No
+    deprecation policy page exists. Nothing signals in advance that an endpoint
+    or a dataset is going away.
+sla:
+  published: false
+  uptime_target: null
+  detail: No service-level agreement or availability target is published.
+status_page:
+  url: null
+  detail: >-
+    ATF operates no status page. Searched atf.gov and the standard vendors; there
+    is no status.atf.gov, no Statuspage/Instatus/Better Stack tenant, and no
+    incident feed. Outages are unannounced. The ArcGIS-hosted layers inherit Esri's
+    ArcGIS Online status page (https://status.arcgis.com/), which is a THIRD-PARTY
+    signal covering the platform, not ATF's data.
+change_notification:
+  channel: none
+  detail: >-
+    There is no API changelog and no developer mailing list. The nearest thing is
+    a domain-specific feed rather than an engineering one: GET /api/notice returns
+    the dated Federal Register notices that amend these parts, with
+    document_number, publication_date, effective_on and the federalregister.gov
+    URL. That tells a consumer when the REGULATION changed. It says nothing about
+    when the API changes.
+data_freshness:
+  - dataset: Federal Firearm Licensees locations
+    records: 77514
+    last_edited: '2026-06-17'
+    source: geoservices FeatureServer editingInfo / DCAT modified timestamp
+  - dataset: ATF Office Locations
+    records: 537
+    last_edited: '2026-04-16'
+    source: geoservices FeatureServer editingInfo / DCAT modified timestamp

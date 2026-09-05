@@ -1,0 +1,375 @@
+openapi: 3.1.0
+info:
+  title: ATF eRegulations API
+  version: '2026-09-05'
+  summary: Read-only JSON API over ATF's eRegulations platform (27 CFR Parts 447, 478, 479, 555, 646, 771).
+  description: >-
+    Machine-readable description of the public JSON API served at
+    https://regulations.atf.gov/api/. ATF runs the 18F/eRegulations stack
+    (`regulations-core` + `regulations-site`, forked into the atfweb GitHub
+    organization), which exposes its regulation tree, Federal Register notices,
+    version diffs and full-text search over anonymous HTTP.
+
+    PROVENANCE: ATF does not publish an OpenAPI document. This description was
+    MODELED BY API EVANGELIST from live, unauthenticated probes of the endpoints
+    listed below on 2026-09-05 — every path, parameter and response property here
+    was observed in a real 200 response from regulations.atf.gov. Nothing was
+    inferred from another agency's deployment and nothing was copied from a
+    different host. It is a faithful description of an API ATF operates, not a
+    contract ATF authored. Treat it as `generated`, never as `searched`.
+  contact:
+    name: Bureau of Alcohol, Tobacco, Firearms and Explosives
+    url: https://www.atf.gov/contact
+  license:
+    name: U.S. Government Work (17 U.S.C. 105)
+    url: https://www.usa.gov/government-works
+x-generated-from: live probe of https://regulations.atf.gov/api/* on 2026-09-05
+x-api-evangelist-modeled: true
+x-upstream-project: https://github.com/atfweb/regulations-core
+servers:
+  - url: https://regulations.atf.gov/api
+    description: ATF eRegulations production API (anonymous, no key)
+tags:
+  - name: Regulations
+    description: The CFR part tree and its effective versions.
+  - name: Notices
+    description: Federal Register notices that amend the ATF parts.
+  - name: Search
+    description: Full-text search across regulation text.
+  - name: Diffs
+    description: Structural differences between two versions of a part.
+paths:
+  /regulation:
+    get:
+      operationId: listRegulationVersions
+      tags: [Regulations]
+      summary: List every regulation part and effective version eRegulations holds
+      description: >-
+        Returns every (regulation, version) pair loaded into the platform. `version`
+        is the Federal Register document number that produced the text; `by_date`
+        is the date that version took effect.
+      responses:
+        '200':
+          description: Version list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionList'
+  /regulation/{part}:
+    get:
+      operationId: listPartVersions
+      tags: [Regulations]
+      summary: List the effective versions of one CFR part
+      parameters:
+        - $ref: '#/components/parameters/Part'
+      responses:
+        '200':
+          description: Version list scoped to one part
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionList'
+  /regulation/{part}/{version}:
+    get:
+      operationId: getRegulationTree
+      tags: [Regulations]
+      summary: Retrieve the full node tree for one version of a CFR part
+      description: >-
+        Returns the whole regulation as a recursive node tree. Each node carries a
+        `label` array (the hierarchical citation, e.g. ["478","11"]), the node
+        `text`, a `node_type` (`regtext`, `subpart`, `section`, `paragraph`,
+        `appendix`, …), an `lft` ordering key and its `children`.
+      parameters:
+        - $ref: '#/components/parameters/Part'
+        - $ref: '#/components/parameters/Version'
+      responses:
+        '200':
+          description: Regulation node tree
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegulationNode'
+  /notice:
+    get:
+      operationId: listNotices
+      tags: [Notices]
+      summary: List Federal Register notices affecting the ATF parts
+      parameters:
+        - name: part
+          in: query
+          required: false
+          description: Restrict to notices touching one CFR part (e.g. 478).
+          schema:
+            type: string
+            examples: ['478']
+      responses:
+        '200':
+          description: Notice list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoticeList'
+  /notice/{documentNumber}:
+    get:
+      operationId: getNotice
+      tags: [Notices]
+      summary: Retrieve one Federal Register notice with its amendment instructions
+      parameters:
+        - name: documentNumber
+          in: path
+          required: true
+          description: Federal Register document number, e.g. 2026-01141.
+          schema:
+            type: string
+            examples: ['2026-01141']
+      responses:
+        '200':
+          description: Notice detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notice'
+  /diff/{part}/{older}/{newer}:
+    get:
+      operationId: getVersionDiff
+      tags: [Diffs]
+      summary: Difference between two versions of a CFR part
+      description: >-
+        Returns a node-keyed map of changes. An empty object means the platform
+        holds no computed diff between the two versions requested.
+      parameters:
+        - $ref: '#/components/parameters/Part'
+        - name: older
+          in: path
+          required: true
+          schema: { type: string, examples: ['2025-04872'] }
+        - name: newer
+          in: path
+          required: true
+          schema: { type: string, examples: ['2026-01141'] }
+      responses:
+        '200':
+          description: Diff map, keyed by node label string
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+  /search:
+    get:
+      operationId: searchRegulationText
+      tags: [Search]
+      summary: Full-text search across regulation text
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Search terms. Required — omitting it returns HTTP 400.
+          schema: { type: string, examples: ['firearm'] }
+        - name: regulation
+          in: query
+          required: false
+          description: Restrict results to one CFR part.
+          schema: { type: string, examples: ['478'] }
+        - name: version
+          in: query
+          required: false
+          description: Restrict results to one effective version.
+          schema: { type: string, examples: ['2026-01141'] }
+        - name: page
+          in: query
+          required: false
+          description: Zero-based page of results.
+          schema: { type: integer, minimum: 0, examples: [1] }
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResults'
+        '400':
+          description: Missing or invalid query parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+components:
+  parameters:
+    Part:
+      name: part
+      in: path
+      required: true
+      description: >-
+        CFR part number. eRegulations carries 447, 478, 479, 555, 646 and 771.
+      schema:
+        type: string
+        enum: ['447', '478', '479', '555', '646', '771']
+    Version:
+      name: version
+      in: path
+      required: true
+      description: Federal Register document number identifying the effective version.
+      schema:
+        type: string
+        examples: ['2026-01141']
+  schemas:
+    VersionList:
+      type: object
+      required: [versions]
+      properties:
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegulationVersion'
+    RegulationVersion:
+      type: object
+      required: [version, by_date, regulation]
+      properties:
+        version:
+          type: string
+          description: Federal Register document number that produced this text.
+          examples: ['2026-01141']
+        by_date:
+          type: string
+          format: date
+          description: Date the version became effective.
+          examples: ['2026-01-22']
+        regulation:
+          type: string
+          description: CFR part number.
+          examples: ['478']
+    RegulationNode:
+      type: object
+      required: [label, text, node_type, children]
+      properties:
+        label:
+          type: array
+          items: { type: string }
+          description: Hierarchical citation, most significant element first.
+          examples: [['478', '11']]
+        text:
+          type: string
+        node_type:
+          type: string
+          description: Structural role of the node.
+          examples: ['regtext', 'subpart']
+        title:
+          type: string
+        lft:
+          type: integer
+          description: Left-edge ordering key for the nested-set tree.
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegulationNode'
+    NoticeList:
+      type: object
+      required: [results]
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoticeSummary'
+    NoticeSummary:
+      type: object
+      required: [document_number, fr_url, publication_date]
+      properties:
+        document_number: { type: string, examples: ['2019-06266'] }
+        effective_on: { type: string, format: date }
+        publication_date: { type: string, format: date }
+        fr_url:
+          type: string
+          format: uri
+          description: Canonical federalregister.gov URL for the notice.
+    Notice:
+      type: object
+      required: [document_number, cfr_parts, fr_url]
+      properties:
+        document_number: { type: string }
+        title: { type: string }
+        cfr_title: { type: integer }
+        cfr_parts:
+          type: array
+          items: { type: string }
+        fr_citation: { type: string }
+        fr_volume: { type: integer }
+        fr_url: { type: string, format: uri }
+        publication_date: { type: string, format: date }
+        effective_on: { type: string, format: date }
+        comments_close: { type: string, format: date }
+        primary_agency: { type: string }
+        primary_docket: { type: string }
+        dockets:
+          type: array
+          items: { type: string }
+        regulation_id_numbers:
+          type: array
+          items: { type: string }
+        versions:
+          type: object
+          additionalProperties: true
+        amendments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Amendment'
+        section_by_section:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        supporting_documents:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        footnotes:
+          type: object
+          additionalProperties: true
+        meta:
+          type: object
+          additionalProperties: true
+    Amendment:
+      type: object
+      properties:
+        instruction:
+          type: string
+          description: The verbatim Federal Register amendment instruction.
+        cfr_part: { type: string }
+        authority: { type: string }
+    SearchResults:
+      type: object
+      required: [total_hits, results]
+      properties:
+        total_hits: { type: integer, examples: [1596] }
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchHit'
+    SearchHit:
+      type: object
+      properties:
+        text: { type: string }
+        label:
+          type: array
+          items: { type: string }
+        label_string: { type: string, examples: ['478-113a'] }
+        version: { type: string }
+        regulation: { type: string }
+        match_title: { type: string }
+        paragraph_title: { type: string }
+        section_title: { type: string }
+        title: { type: string }
+    ValidationError:
+      type: object
+      required: [reason]
+      properties:
+        reason:
+          type: object
+          description: Field name -> list of validation messages.
+          additionalProperties:
+            type: array
+            items: { type: string }
+      examples:
+        - reason:
+            q: ['Missing data for required field.']
