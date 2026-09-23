@@ -1,0 +1,69 @@
+openapi: 3.2.0
+info:
+  title: ATF eRegulations Diffs API
+  version: '2026-09-05'
+  summary: Read-only JSON API over ATF's eRegulations platform (27 CFR Parts 447, 478, 479, 555, 646, 771).
+  description: Machine-readable description of the public JSON API served at https://regulations.atf.gov/api/.
+  contact:
+    name: Bureau of Alcohol, Tobacco, Firearms and Explosives
+    url: https://www.atf.gov/contact
+  license:
+    name: U.S. Government Work (17 U.S.C. 105)
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://regulations.atf.gov/api
+  description: ATF eRegulations production API (anonymous, no key)
+tags:
+- name: Diffs
+  description: Structural differences between two versions of a part.
+paths:
+  /diff/{part}/{older}/{newer}:
+    get:
+      operationId: getVersionDiff
+      tags:
+      - Diffs
+      summary: Difference between two versions of a CFR part
+      description: Returns a node-keyed map of changes. An empty object means the platform holds no computed diff between the two versions requested.
+      parameters:
+      - $ref: '#/components/parameters/Part'
+      - name: older
+        in: path
+        required: true
+        schema:
+          type: string
+          examples:
+          - 2025-04872
+      - name: newer
+        in: path
+        required: true
+        schema:
+          type: string
+          examples:
+          - 2026-01141
+      responses:
+        '200':
+          description: Diff map, keyed by node label string
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+components:
+  parameters:
+    Part:
+      name: part
+      in: path
+      required: true
+      description: CFR part number. eRegulations carries 447, 478, 479, 555, 646 and 771.
+      schema:
+        type: string
+        enum:
+        - '447'
+        - '478'
+        - '479'
+        - '555'
+        - '646'
+        - '771'
+x-generated-from: live probe of https://regulations.atf.gov/api/* on 2026-09-05
+x-api-evangelist-modeled: true
+x-upstream-project: https://github.com/atfweb/regulations-core

@@ -1,0 +1,176 @@
+openapi: 3.2.0
+info:
+  title: ATF eRegulations Notices API
+  version: '2026-09-05'
+  summary: Read-only JSON API over ATF's eRegulations platform (27 CFR Parts 447, 478, 479, 555, 646, 771).
+  description: Machine-readable description of the public JSON API served at https://regulations.atf.gov/api/.
+  contact:
+    name: Bureau of Alcohol, Tobacco, Firearms and Explosives
+    url: https://www.atf.gov/contact
+  license:
+    name: U.S. Government Work (17 U.S.C. 105)
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://regulations.atf.gov/api
+  description: ATF eRegulations production API (anonymous, no key)
+tags:
+- name: Notices
+  description: Federal Register notices that amend the ATF parts.
+paths:
+  /notice:
+    get:
+      operationId: listNotices
+      tags:
+      - Notices
+      summary: List Federal Register notices affecting the ATF parts
+      parameters:
+      - name: part
+        in: query
+        required: false
+        description: Restrict to notices touching one CFR part (e.g. 478).
+        schema:
+          type: string
+          examples:
+          - '478'
+      responses:
+        '200':
+          description: Notice list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoticeList'
+  /notice/{documentNumber}:
+    get:
+      operationId: getNotice
+      tags:
+      - Notices
+      summary: Retrieve one Federal Register notice with its amendment instructions
+      parameters:
+      - name: documentNumber
+        in: path
+        required: true
+        description: Federal Register document number, e.g. 2026-01141.
+        schema:
+          type: string
+          examples:
+          - 2026-01141
+      responses:
+        '200':
+          description: Notice detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notice'
+components:
+  schemas:
+    NoticeSummary:
+      type: object
+      required:
+      - document_number
+      - fr_url
+      - publication_date
+      properties:
+        document_number:
+          type: string
+          examples:
+          - 2019-06266
+        effective_on:
+          type: string
+          format: date
+        publication_date:
+          type: string
+          format: date
+        fr_url:
+          type: string
+          format: uri
+          description: Canonical federalregister.gov URL for the notice.
+    Notice:
+      type: object
+      required:
+      - document_number
+      - cfr_parts
+      - fr_url
+      properties:
+        document_number:
+          type: string
+        title:
+          type: string
+        cfr_title:
+          type: integer
+        cfr_parts:
+          type: array
+          items:
+            type: string
+        fr_citation:
+          type: string
+        fr_volume:
+          type: integer
+        fr_url:
+          type: string
+          format: uri
+        publication_date:
+          type: string
+          format: date
+        effective_on:
+          type: string
+          format: date
+        comments_close:
+          type: string
+          format: date
+        primary_agency:
+          type: string
+        primary_docket:
+          type: string
+        dockets:
+          type: array
+          items:
+            type: string
+        regulation_id_numbers:
+          type: array
+          items:
+            type: string
+        versions:
+          type: object
+          additionalProperties: true
+        amendments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Amendment'
+        section_by_section:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        supporting_documents:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        footnotes:
+          type: object
+          additionalProperties: true
+        meta:
+          type: object
+          additionalProperties: true
+    NoticeList:
+      type: object
+      required:
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoticeSummary'
+    Amendment:
+      type: object
+      properties:
+        instruction:
+          type: string
+          description: The verbatim Federal Register amendment instruction.
+        cfr_part:
+          type: string
+        authority:
+          type: string
+x-generated-from: live probe of https://regulations.atf.gov/api/* on 2026-09-05
+x-api-evangelist-modeled: true
+x-upstream-project: https://github.com/atfweb/regulations-core

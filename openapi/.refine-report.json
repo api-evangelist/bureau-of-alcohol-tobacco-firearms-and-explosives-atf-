@@ -1,0 +1,26 @@
+{
+  "provider": "bureau-of-alcohol-tobacco-firearms-and-explosives-atf-",
+  "sources": [
+    "_original/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--eregulations-openapi.yml"
+  ],
+  "outputs": [
+    "bureau-of-alcohol-tobacco-firearms-and-explosives-atf--diffs-api-openapi.yml",
+    "bureau-of-alcohol-tobacco-firearms-and-explosives-atf--notices-api-openapi.yml",
+    "bureau-of-alcohol-tobacco-firearms-and-explosives-atf--regulations-api-openapi.yml",
+    "bureau-of-alcohol-tobacco-firearms-and-explosives-atf--search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "bureau-of-alcohol-tobacco-firearms-and-explosives-atf--eregulations-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "bureau-of-alcohol-tobacco-firearms-and-explosives-atf--diffs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bureau-of-alcohol-tobacco-firearms-and-explosives-atf--notices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bureau-of-alcohol-tobacco-firearms-and-explosives-atf--regulations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bureau-of-alcohol-tobacco-firearms-and-explosives-atf--search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

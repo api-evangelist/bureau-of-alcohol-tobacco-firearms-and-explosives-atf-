@@ -1,0 +1,159 @@
+openapi: 3.2.0
+info:
+  title: ATF eRegulations Regulations API
+  version: '2026-09-05'
+  summary: Read-only JSON API over ATF's eRegulations platform (27 CFR Parts 447, 478, 479, 555, 646, 771).
+  description: Machine-readable description of the public JSON API served at https://regulations.atf.gov/api/.
+  contact:
+    name: Bureau of Alcohol, Tobacco, Firearms and Explosives
+    url: https://www.atf.gov/contact
+  license:
+    name: U.S. Government Work (17 U.S.C. 105)
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://regulations.atf.gov/api
+  description: ATF eRegulations production API (anonymous, no key)
+tags:
+- name: Regulations
+  description: The CFR part tree and its effective versions.
+paths:
+  /regulation:
+    get:
+      operationId: listRegulationVersions
+      tags:
+      - Regulations
+      summary: List every regulation part and effective version eRegulations holds
+      description: Returns every (regulation, version) pair loaded into the platform. `version` is the Federal Register document number that produced the text; `by_date` is the date that version took effect.
+      responses:
+        '200':
+          description: Version list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionList'
+  /regulation/{part}:
+    get:
+      operationId: listPartVersions
+      tags:
+      - Regulations
+      summary: List the effective versions of one CFR part
+      parameters:
+      - $ref: '#/components/parameters/Part'
+      responses:
+        '200':
+          description: Version list scoped to one part
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionList'
+  /regulation/{part}/{version}:
+    get:
+      operationId: getRegulationTree
+      tags:
+      - Regulations
+      summary: Retrieve the full node tree for one version of a CFR part
+      description: Returns the whole regulation as a recursive node tree. Each node carries a `label` array (the hierarchical citation, e.g. ["478","11"]), the node `text`, a `node_type` (`regtext`, `subpart`, `section`, `paragraph`, `appendix`, …), an `lft` ordering key and its `children`.
+      parameters:
+      - $ref: '#/components/parameters/Part'
+      - $ref: '#/components/parameters/Version'
+      responses:
+        '200':
+          description: Regulation node tree
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegulationNode'
+components:
+  parameters:
+    Part:
+      name: part
+      in: path
+      required: true
+      description: CFR part number. eRegulations carries 447, 478, 479, 555, 646 and 771.
+      schema:
+        type: string
+        enum:
+        - '447'
+        - '478'
+        - '479'
+        - '555'
+        - '646'
+        - '771'
+    Version:
+      name: version
+      in: path
+      required: true
+      description: Federal Register document number identifying the effective version.
+      schema:
+        type: string
+        examples:
+        - 2026-01141
+  schemas:
+    RegulationVersion:
+      type: object
+      required:
+      - version
+      - by_date
+      - regulation
+      properties:
+        version:
+          type: string
+          description: Federal Register document number that produced this text.
+          examples:
+          - 2026-01141
+        by_date:
+          type: string
+          format: date
+          description: Date the version became effective.
+          examples:
+          - '2026-01-22'
+        regulation:
+          type: string
+          description: CFR part number.
+          examples:
+          - '478'
+    RegulationNode:
+      type: object
+      required:
+      - label
+      - text
+      - node_type
+      - children
+      properties:
+        label:
+          type: array
+          items:
+            type: string
+          description: Hierarchical citation, most significant element first.
+          examples:
+          - - '478'
+            - '11'
+        text:
+          type: string
+        node_type:
+          type: string
+          description: Structural role of the node.
+          examples:
+          - regtext
+          - subpart
+        title:
+          type: string
+        lft:
+          type: integer
+          description: Left-edge ordering key for the nested-set tree.
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegulationNode'
+    VersionList:
+      type: object
+      required:
+      - versions
+      properties:
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RegulationVersion'
+x-generated-from: live probe of https://regulations.atf.gov/api/* on 2026-09-05
+x-api-evangelist-modeled: true
+x-upstream-project: https://github.com/atfweb/regulations-core
