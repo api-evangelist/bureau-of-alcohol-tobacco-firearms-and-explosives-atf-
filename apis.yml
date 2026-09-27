@@ -4,7 +4,7 @@ name: Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)
 tags:
 - Alcohol
 - Explosives
-- Federal-Government
+- Federal Government
 - Firearms
 - Geospatial
 - Law Enforcement
@@ -23,6 +23,7 @@ tags_raw:
 - Public Safety
 - Regulations
 - Tobacco
+- Federal-Government
 type: Index
 kind: government
 deliveryModel:
@@ -63,7 +64,7 @@ apis:
   name: ATF Firearms Trace Data
   tags:
   - Firearms
-  - Federal-Government
+  - Federal Government
   - Law Enforcement
   - Public Safety
   - Statistics
@@ -73,6 +74,7 @@ apis:
   - Law Enforcement
   - Public Safety
   - Statistics
+  - Federal-Government
   humanURL: https://www.atf.gov/firearms/docs/report/2022-firearms-trace-data-report/download
   properties:
   - url: https://www.atf.gov/firearms/firearms-trace-data-2022
@@ -87,11 +89,12 @@ apis:
   tags:
   - Federal Firearms Licensees
   - Firearms
-  - Federal-Government
+  - Federal Government
   tags_raw:
   - Federal Firearms Licensees
   - Firearms
   - Federal Government
+  - Federal-Government
   humanURL: https://www.atf.gov/firearms/listing-federal-firearms-licensees
   baseURL: https://www.atf.gov/firearms/docs/report/
   properties:
@@ -107,7 +110,7 @@ apis:
   tags:
   - Firearms
   - Federal Firearms Licensees
-  - Federal-Government
+  - Federal Government
   - Geospatial
   - Open Data
   tags_raw:
@@ -116,6 +119,7 @@ apis:
   - Federal Government
   - Geospatial
   - Open Data
+  - Federal-Government
   humanURL: https://opendata-atf-geoplatform.hub.arcgis.com/datasets/e7a13c9919314e51b240031e697ae095_0
   baseURL: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/Federal_Firearm_Licensees_locations/FeatureServer
   properties:
@@ -134,7 +138,7 @@ apis:
 - aid: bureau-of-alcohol-tobacco-firearms-and-explosives-atf-:atf-office-locations-feature-service
   name: ATF Office Locations (ArcGIS Feature Service)
   tags:
-  - Federal-Government
+  - Federal Government
   - Law Enforcement
   - Geospatial
   - Open Data
@@ -145,6 +149,7 @@ apis:
   - Geospatial
   - Open Data
   - Locations
+  - Federal-Government
   humanURL: https://opendata-atf-geoplatform.hub.arcgis.com/datasets/8456bb4e8e68446aa27e3061ab6d4ac9_0
   baseURL: https://services6.arcgis.com/PrP5ZtrES07DmVmv/arcgis/rest/services/ATF_Office_Locations/FeatureServer
   properties:

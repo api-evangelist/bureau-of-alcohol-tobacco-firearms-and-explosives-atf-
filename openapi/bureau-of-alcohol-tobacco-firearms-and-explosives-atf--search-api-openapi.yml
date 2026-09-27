@@ -72,6 +72,31 @@ paths:
                 $ref: '#/components/schemas/ValidationError'
 components:
   schemas:
+    SearchHit:
+      type: object
+      properties:
+        text:
+          type: string
+        label:
+          type: array
+          items:
+            type: string
+        label_string:
+          type: string
+          examples:
+          - 478-113a
+        version:
+          type: string
+        regulation:
+          type: string
+        match_title:
+          type: string
+        paragraph_title:
+          type: string
+        section_title:
+          type: string
+        title:
+          type: string
     ValidationError:
       type: object
       required:
@@ -102,31 +127,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SearchHit'
-    SearchHit:
-      type: object
-      properties:
-        text:
-          type: string
-        label:
-          type: array
-          items:
-            type: string
-        label_string:
-          type: string
-          examples:
-          - 478-113a
-        version:
-          type: string
-        regulation:
-          type: string
-        match_title:
-          type: string
-        paragraph_title:
-          type: string
-        section_title:
-          type: string
-        title:
-          type: string
 x-generated-from: live probe of https://regulations.atf.gov/api/* on 2026-09-05
 x-api-evangelist-modeled: true
 x-upstream-project: https://github.com/atfweb/regulations-core
