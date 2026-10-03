@@ -63,16 +63,6 @@ paths:
                 $ref: '#/components/schemas/Notice'
 components:
   schemas:
-    Amendment:
-      type: object
-      properties:
-        instruction:
-          type: string
-          description: The verbatim Federal Register amendment instruction.
-        cfr_part:
-          type: string
-        authority:
-          type: string
     Notice:
       type: object
       required:
@@ -171,6 +161,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NoticeSummary'
+    Amendment:
+      type: object
+      properties:
+        instruction:
+          type: string
+          description: The verbatim Federal Register amendment instruction.
+        cfr_part:
+          type: string
+        authority:
+          type: string
 x-generated-from: live probe of https://regulations.atf.gov/api/* on 2026-09-05
 x-api-evangelist-modeled: true
 x-upstream-project: https://github.com/atfweb/regulations-core
