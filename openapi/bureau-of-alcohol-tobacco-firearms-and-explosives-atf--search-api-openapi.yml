@@ -72,36 +72,6 @@ paths:
                 $ref: '#/components/schemas/ValidationError'
 components:
   schemas:
-    SearchResults:
-      type: object
-      required:
-      - total_hits
-      - results
-      properties:
-        total_hits:
-          type: integer
-          examples:
-          - 1596
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchHit'
-    ValidationError:
-      type: object
-      required:
-      - reason
-      properties:
-        reason:
-          type: object
-          description: Field name -> list of validation messages.
-          additionalProperties:
-            type: array
-            items:
-              type: string
-      examples:
-      - reason:
-          q:
-          - Missing data for required field.
     SearchHit:
       type: object
       properties:
@@ -127,6 +97,36 @@ components:
           type: string
         title:
           type: string
+    ValidationError:
+      type: object
+      required:
+      - reason
+      properties:
+        reason:
+          type: object
+          description: Field name -> list of validation messages.
+          additionalProperties:
+            type: array
+            items:
+              type: string
+      examples:
+      - reason:
+          q:
+          - Missing data for required field.
+    SearchResults:
+      type: object
+      required:
+      - total_hits
+      - results
+      properties:
+        total_hits:
+          type: integer
+          examples:
+          - 1596
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchHit'
 x-generated-from: live probe of https://regulations.atf.gov/api/* on 2026-09-05
 x-api-evangelist-modeled: true
 x-upstream-project: https://github.com/atfweb/regulations-core
