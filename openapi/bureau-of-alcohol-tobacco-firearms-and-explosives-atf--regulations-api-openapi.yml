@@ -89,6 +89,29 @@ components:
         - '646'
         - '771'
   schemas:
+    RegulationVersion:
+      type: object
+      required:
+      - version
+      - by_date
+      - regulation
+      properties:
+        version:
+          type: string
+          description: Federal Register document number that produced this text.
+          examples:
+          - 2026-01141
+        by_date:
+          type: string
+          format: date
+          description: Date the version became effective.
+          examples:
+          - '2026-01-22'
+        regulation:
+          type: string
+          description: CFR part number.
+          examples:
+          - '478'
     RegulationNode:
       type: object
       required:
@@ -122,29 +145,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RegulationNode'
-    RegulationVersion:
-      type: object
-      required:
-      - version
-      - by_date
-      - regulation
-      properties:
-        version:
-          type: string
-          description: Federal Register document number that produced this text.
-          examples:
-          - 2026-01141
-        by_date:
-          type: string
-          format: date
-          description: Date the version became effective.
-          examples:
-          - '2026-01-22'
-        regulation:
-          type: string
-          description: CFR part number.
-          examples:
-          - '478'
     VersionList:
       type: object
       required:
