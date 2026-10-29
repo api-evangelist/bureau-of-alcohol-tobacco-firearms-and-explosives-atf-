@@ -66,59 +66,130 @@
 
 ATF is a law enforcement agency in the United States Department of Justice that protects communities from violent criminals, criminal organizations, the illegal use and trafficking of firearms, the illegal use and storage of explosives, acts of arson and bombings, acts of terrorism, and the illegal diversion of alcohol and tobacco products. ATF publishes firearms trace data, crime statistics, and regulatory information.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/refs/heads/main/apis.yml)
+**Areas:** Alcohol · Explosives · Federal Government · Firearms · Geospatial · Law Enforcement · Open Data · Public Safety · Regulations · Tobacco
 
-## Scope
+## Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF) on APIs.io
 
-- **Type:** Index
-- **x-type:** government
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF) is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/](https://apis.io/providers/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (8)
 
-- Alcohol
-- Explosives
-- Federal Government
-- Firearms
-- Law Enforcement
-- Public Safety
-- Tobacco
+- [ATF Firearms Trace Data](https://apis.io/apis/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/atf-firearms-trace-data/) — ATF publishes annual firearms trace data reports covering the source and age of crime guns traced by law enforcement agencies across the United States. Data…
+- [ATF Federal Firearms Licensee (FFL) Listing](https://apis.io/apis/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/atf-federal-firearms-licensee-listing/) — ATF publishes listings of all active Federal Firearms Licensees (FFLs) by state. The data is available as downloadable files and can be accessed…
+- [ATF Federal Firearm Licensee Locations (ArcGIS Feature Service)](https://apis.io/apis/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/atf-ffl-locations-feature-service/) — An anonymous Esri GeoServices REST feature service carrying 77,514 geocoded Federal Firearms Licensee premises, published by ATF's National Geospatial…
+- [ATF Office Locations (ArcGIS Feature Service)](https://apis.io/apis/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/atf-office-locations-feature-service/) — An anonymous Esri GeoServices REST feature service listing 537 ATF offices and field divisions across the United States, with office type, name, street…
+- [Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF) Diffs API](https://apis.io/apis/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--diffs-api/) — Structural differences between two versions of a part.
+- [Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF) Notices API](https://apis.io/apis/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--notices-api/) — Federal Register notices that amend the ATF parts.
+- [Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF) Regulations API](https://apis.io/apis/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--regulations-api/) — The CFR part tree and its effective versions.
+- [Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF) Search API](https://apis.io/apis/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--search-api/) — Full-text search across regulation text.
 
-## APIs
+### Published properties
 
-### ATF Firearms Trace Data
-ATF publishes annual firearms trace data reports covering the source and age of crime guns traced by law enforcement agencies across the United States.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-**Human URL:** [https://www.atf.gov/firearms/firearms-trace-data-2022](https://www.atf.gov/firearms/firearms-trace-data-2022)
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
-- [Documentation](https://www.atf.gov/firearms/firearms-trace-data-2022)
-- [DataAPI](https://catalog.data.gov/dataset?organization=atf-gov)
+- [bureau-of-alcohol-tobacco-firearms-and-explosives-atf--mcp.yml](https://apis.io/servers/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--mcp-yml/)
 
-### ATF Federal Firearms Licensee (FFL) Listing
-ATF publishes listings of all active Federal Firearms Licensees (FFLs) by state, available as downloadable files for compliance verification.
+#### JSON Schema (2)
 
-**Human URL:** [https://www.atf.gov/firearms/listing-federal-firearms-licensees](https://www.atf.gov/firearms/listing-federal-firearms-licensees)
+The data models the API reads and writes.
 
-#### Properties
+- [Federal Firearm License Location](https://apis.io/schemas/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--ffl-locations/)
+- [ATF Office Location](https://apis.io/schemas/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--office-locations/)
 
-- [Documentation](https://www.atf.gov/firearms/listing-federal-firearms-licensees)
+#### Overlays (1)
 
-## Common Properties
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Bureau Of Alcohol Tobacco Firearms And Explosives Atf  Eregulations Overlay](https://apis.io/overlays/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--eregulations-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Bureau Of Alcohol Tobacco Firearms And Explosives Atf  Authentication](https://apis.io/security/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--authentication/)
+- [Bureau Of Alcohol Tobacco Firearms And Explosives Atf  Domain Security](https://apis.io/security/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Bureau Of Alcohol Tobacco Firearms And Explosives Atf  Plans Pricing](https://apis.io/plans/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Bureau Of Alcohol Tobacco Firearms And Explosives Atf  Rate Limits](https://apis.io/rate-limits/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Bureau Of Alcohol Tobacco Firearms And Explosives Atf  Finops](https://apis.io/finops/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.atf.gov/)
-- [Data Portal](https://catalog.data.gov/dataset?organization=atf-gov)
-- [Statistics](https://www.atf.gov/resource-center/data-statistics)
-- [Publications](https://www.atf.gov/resource-center/publications)
+- [Documentation](https://regulations.atf.gov/)
+- [API reference](https://regulations.atf.gov/api/regulation)
+- [Privacy policy](https://www.atf.gov/privacy-policy)
+- [GitHub](https://github.com/atfweb)
 
-## Timestamps
+## API Evangelist rating
 
-- **Created:** 2024-11-21
-- **Modified:** 2026-04-21
+**Kin Score 29.1** — thin · rubric 0.24.0 · scored 2026-10-17
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 46.2 |
+| Contract governance | 18.2 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 30.4 |
+| Access clarity | 10.5 |
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Agent readiness 25.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 20.6** — Government & Public Sector
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/](https://apis.io/providers/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF): the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/bureau-of-alcohol-tobacco-firearms-and-explosives-atf-/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
