@@ -41,6 +41,9 @@ artifacts:
   heartbeat/2026-11-02.yml:
     method: unknown
     evidence: no authorship recorded
+  heartbeat/2026-11-06.yml:
+    method: unknown
+    evidence: no authorship recorded
   json-schema/bureau-of-alcohol-tobacco-firearms-and-explosives-atf--ffl-locations.json:
     method: unknown
     evidence: no authorship recorded
